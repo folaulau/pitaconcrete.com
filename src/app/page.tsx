@@ -6,7 +6,7 @@ export default function Home() {
 
   return (
     <main className='container'>
-      <h2>Hello1</h2>
+      <h2>I am Peter Fotu. I eat sima work like ice cream on a hot sunny day!!! Hit me up!</h2>
 
     </main>
   )
