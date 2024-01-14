@@ -6,7 +6,7 @@ export default function Home() {
 
   return (
     <main className='container'>
-      <h2>Coming soon!</h2>
+      <h2>Coming soon!!</h2>
 
     </main>
   )
