@@ -1,6 +1,8 @@
 'use client'
 
 import { useState , useEffect} from "react";
+import UserApi from '../../api/UserApi'
+import Auth from '../../components/Auth';
 
 export default function SignIn() {
 
@@ -8,8 +10,8 @@ export default function SignIn() {
   console.log("NEXT_PUBLIC_API_URL: ", process.env.NEXT_PUBLIC_API_URL)
 
   const [userInfo, setUserInfo] = useState({
-    email: process.env.REACT_APP_EMAIL,
-    password: process.env.REACT_APP_PASSWORD
+    email: "folaukaveinga@gmail.com",
+    password: "folaulau1"
   });
 
   const [errorMsg, setErrorMsg] = useState("");
@@ -28,6 +30,24 @@ export default function SignIn() {
 
   const signInWithEmailAndPassword = () => {
     console.log(userInfo)
+
+    UserApi.sigin(userInfo).then((response) => {
+      console.log("response: ", response);
+
+      Auth.signIn(response.data);
+
+      // window.location.href = "/";
+      
+    }).catch((error) => {
+      console.error("Error msg: ", error.message);
+      console.error("Error: ", error);
+      if(error.response.data){
+        setErrorMsg(error.response.data.message)
+      }else{
+        setErrorMsg(error.message+". Server may be down")
+      }
+      
+    });
 
   };
 
