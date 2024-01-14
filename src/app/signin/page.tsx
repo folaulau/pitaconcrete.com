@@ -2,7 +2,6 @@
 import dynamic from 'next/dynamic';
 import { useState , useEffect} from "react";
 import UserApi from '../../api/UserApi'
-import Auth from '../../components/Auth';
 
 const AUTH = "auth"
 
