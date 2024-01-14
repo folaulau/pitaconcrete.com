@@ -36,9 +36,11 @@ export default function SignIn() {
       console.log("response: ", response);
 
       // Auth.signIn(response.data);
-
-      localStorage.setItem(AUTH, JSON.stringify(response.data));
-      localStorage.setItem("token", response.data);
+      if (typeof window !== 'undefined') {
+        // Code that uses localStorage
+        localStorage.setItem(AUTH, JSON.stringify(response.data));
+        localStorage.setItem("token", response.data);
+      }
 
       // window.location.href = "/";
       
