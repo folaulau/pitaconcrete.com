@@ -5,6 +5,7 @@ import { useState , useEffect} from "react";
 export default function SignIn() {
 
   console.log("NEXT_PUBLIC_ENV: ", process.env.NEXT_PUBLIC_ENV)
+  console.log("NEXT_PUBLIC_API_URL: ", process.env.NEXT_PUBLIC_API_URL)
 
   const [userInfo, setUserInfo] = useState({
     email: process.env.REACT_APP_EMAIL,
@@ -18,7 +19,7 @@ export default function SignIn() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const handleInputChange = (e) => {
+  const handleInputChange = (e: any) => {
     setUserInfo(userInfo => ({
       ...userInfo,
       [e.target.name]: e.target.value,
