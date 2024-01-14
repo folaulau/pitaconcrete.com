@@ -1,8 +1,10 @@
 'use client'
-
+import dynamic from 'next/dynamic';
 import { useState , useEffect} from "react";
 import UserApi from '../../api/UserApi'
 import Auth from '../../components/Auth';
+
+const AUTH = "auth"
 
 export default function SignIn() {
 
@@ -34,7 +36,10 @@ export default function SignIn() {
     UserApi.sigin(userInfo).then((response) => {
       console.log("response: ", response);
 
-      Auth.signIn(response.data);
+      // Auth.signIn(response.data);
+
+      localStorage.setItem(AUTH, JSON.stringify(response.data));
+      localStorage.setItem("token", response.data);
 
       // window.location.href = "/";
       
