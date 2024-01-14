@@ -1,3 +1,5 @@
+'use client'
+
 const AUTH = "auth"
 
 const Auth = {
