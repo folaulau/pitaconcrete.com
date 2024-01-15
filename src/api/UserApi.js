@@ -11,6 +11,8 @@ const UserApi = {
 
     sigin: (payload) => {
 
+        console.log("signin to, "+process.env.NEXT_PUBLIC_API_URL)
+
         const options = {
             headers: {
                 'Content-Type': 'application/json'
