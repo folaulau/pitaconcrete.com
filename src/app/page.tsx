@@ -1,4 +1,6 @@
 import Image from 'next/image'
+import { Button } from 'react-bootstrap';
+import Carousel from 'react-bootstrap/Carousel';
 
 export default function Home() {
 
@@ -7,6 +9,8 @@ export default function Home() {
   return (
     <main className='container'>
       <h2>Coming soon!!</h2>
+
+      <Button variant="primary">Primary</Button>
 
     </main>
   )
