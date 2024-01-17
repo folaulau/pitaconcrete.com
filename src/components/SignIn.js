@@ -49,9 +49,11 @@ export default function SignIn() {
         // Code that uses localStorage
         localStorage.setItem(AUTH, JSON.stringify(response.data));
         localStorage.setItem("token", response.data);
+
+        window.location.href = "/";
       }
 
-      // window.location.href = "/";
+     
       
     }).catch((error) => {
       console.error("Error msg: ", error.message);
