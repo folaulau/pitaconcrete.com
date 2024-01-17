@@ -1,6 +1,11 @@
 'use client'
 import { useState , useEffect} from "react";
 import UserApi from '../api/UserApi'
+import axios from 'axios';
+
+var instance = axios.create({
+    baseURL: process.env.NEXT_PUBLIC_API_URL
+});
 
 const AUTH = "auth"
 
@@ -31,7 +36,12 @@ export default function SignIn() {
   const signInWithEmailAndPassword = () => {
     console.log(userInfo)
 
-    UserApi.sigin(userInfo).then((response) => {
+    const options = {
+      headers: {
+          'Content-Type': 'application/json'
+      }
+    };
+    instance.post('/pitaconcrete/signin', JSON.stringify(userInfo), options).then((response) => {
       console.log("response: ", response);
 
       // Auth.signIn(response.data);
