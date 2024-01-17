@@ -16,7 +16,7 @@ export default function SignIn() {
 
   const [userInfo, setUserInfo] = useState({
     email: "folaukaveinga@gmail.com",
-    password: "folaulau1"
+    password: "folaulisa1"
   });
 
   const [errorMsg, setErrorMsg] = useState("");
