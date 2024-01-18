@@ -4,7 +4,7 @@ import dynamic from 'next/dynamic';
 import React from 'react';
 
 // Use dynamic import with ssr set to false
-const SignInWithNoSSR = dynamic(() => import('../../components/SignIn'), {
+const SignInWithNoSSR = dynamic(() => import('../../components/client_components/SignIn'), {
   ssr: false
 });
 
