@@ -16,6 +16,10 @@ export default function UploadProject() {
 
   const [errorMsg, setErrorMsg] = useState("");
 
+  const [disableSaveBtn, setDisableSaveBtn] = useState(true);
+
+  const [showBusy, setShowBusy] = useState(false);
+
   const mediaDomin = process.env.NEXT_PUBLIC_MEDIA_CLOUDFRONT_URL
 
   useEffect(() => {
@@ -96,47 +100,6 @@ export default function UploadProject() {
 
     }
   };
-
-  // const signInWithEmailAndPassword = () => {
-  //   console.log(userInfo)
-
-  //   const options = {
-  //     headers: {
-  //         'Content-Type': 'application/json'
-  //     }
-  //   };
-  //   instance.post('/pitaconcrete/signin', JSON.stringify(userInfo), options).then((response) => {
-  //     console.log("response: ", response);
-
-  //     // Auth.signIn(response.data);
-  //     if (typeof window !== 'undefined') {
-  //       // Code that uses localStorage
-  //       localStorage.setItem(AUTH, JSON.stringify(response.data));
-  //       localStorage.setItem("token", response.data);
-
-  //       window.location.href = "/";
-  //     }
-
-     
-      
-  //   }).catch((error) => {
-  //     console.error("Error msg: ", error.message);
-  //     console.error("Error: ", error);
-  //     if(error.response.data){
-  //       setErrorMsg(error.response.data.message)
-  //     }else{
-  //       setErrorMsg(error.message+". Server may be down")
-  //     }
-      
-  //   });
-
-  // };
-
-  // const handleKeyDown = (event) => {
-  //   if (event.keyCode === 13) {
-  //     signInWithEmailAndPassword()
-  //   }
-  // }
 
   return (
     <>
