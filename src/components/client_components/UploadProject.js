@@ -5,10 +5,6 @@ import axios from 'axios';
 import {FileType} from './FileType'
 import FileApi from '../../api/FileApi'
 
-var instance = axios.create({
-    baseURL: process.env.NEXT_PUBLIC_API_URL
-});
-
 export default function UploadProject() {
 
   const [project, setProject] = useState({
@@ -19,6 +15,8 @@ export default function UploadProject() {
   });
 
   const [errorMsg, setErrorMsg] = useState("");
+
+  const mediaDomin = process.env.NEXT_PUBLIC_MEDIA_CLOUDFRONT_URL
 
   useEffect(() => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -31,22 +29,19 @@ export default function UploadProject() {
     }))
   }
 
+  const addMediaFile = (fileInfo) => {
+    setProject(project => ({
+      ...project,
+      files: [...project.files, fileInfo]
+    }));
+  }
+
   const handleFileLoads = (e) => {
 
     // setDisableSaveBtn(false)
 
     console.log("handleFileLoads")
     let files = e.target.files
-
-    const formData = new FormData();
-
-    for (let i = 0; i < files.length; i++) {
-      const file = files[i];
-
-      console.log(file.name)
-
-      formData.append('files', file);
-    }
 
     // setSelectedFiles(files);
 
@@ -56,18 +51,32 @@ export default function UploadProject() {
 
       // setShowBusy(true)
 
-      FileApi.uploadFiles("project", formData).then((response) => {
+      FileApi.getPresignedUrlsToUploadFiles(files).then((response) => {
         console.log("files uploaded response: ", response.data);
 
-        let newProject = JSON.parse(JSON.stringify(entry));
+        let fileInfos = response.data
 
-        newProject['files'] = newProject.files.concat(response.data)
+        for (let i = 0; i < files.length; i++) {
+          let file = files[i];
+          let fileInfo = fileInfos[i]
 
-        setProject(newProject)
-        // setEntry(newEntry);
+          FileApi.uploadFileToS3(file, fileInfo['url']).then((response) => {
 
-        // setDisableSaveBtn(false)
-        // setShowBusy(false)
+            console.log("file uploaded to s3")
+
+            addMediaFile(fileInfo)
+            
+
+          }).catch((error) => {
+            console.error("Error: ", error);
+            setErrorMsg(error.message)
+            console.error("Error: ", errorMsg);
+    
+            setDisableSaveBtn(false)
+            setShowBusy(false)
+          });
+        }
+
         
       }).catch((error) => {
         console.error("Error: ", error);
@@ -196,34 +205,34 @@ export default function UploadProject() {
                   project.files.length > 0 &&
                   project.files.map((file)=>(
                     
-                      <div key={file.id} className='col-12 col-sm-4 text-center'>
+                      <div key={file.aws_key} className='col-12 col-sm-4 text-center'>
 
                         <div className='row'>
                           <div className='col-12'>
-                            {file.fileName}
+                            {file.file_name}
                           </div>
                         </div>
 
                         <div className='row'>
                           <div className='col-12 border'>
                             {
-                              file.fileUIType === FileType.IMAGE &&
-                              <img src={file.s3GeneratedUrl} className="img-fluid" alt="..."/>
+                              file.file_ui_type === FileType.IMAGE &&
+                              <img src={mediaDomin + `/`+ file.aws_key} className="img-fluid" alt="..."/>
                             }
                             {
-                              file.fileUIType === FileType.VIDEO &&
+                              file.file_ui_type === FileType.VIDEO &&
                               <video width="500" height="350" controls>
-                                 <source src={file.s3GeneratedUrl} type={file.contentType}></source>
+                                 <source src={mediaDomin + `/`+ file.aws_key} type={file.content_type}></source>
                                  Your browser does not support the video tag.
                               </video>
                             }
                             {
-                              file.fileUIType === FileType.PDF &&
+                              file.file_ui_type === FileType.PDF &&
                               <iframe 
-                              src={file.s3GeneratedUrl} 
+                              src={mediaDomin + `/`+ file.aws_key} 
                               width="500" 
                               height="350" 
-                              title={file.fileName}>
+                              title={file.file_name}>
                               </iframe>
                             }
                           </div>
@@ -232,7 +241,7 @@ export default function UploadProject() {
                         <div className='row mb-1'>
                           <div className='col-12'>
                             <button 
-                              onClick={(e)=>removeFile(file.id)}
+                              onClick={(e)=>removeFile(file.aws_key)}
                               type="button" className="btn btn-outline-danger btn-sm">remove</button>
                           </div>
                         </div>
