@@ -36,6 +36,13 @@ export default function UploadProject() {
     }));
   }
 
+  const removeMediaFile = (aws_key) => {
+    setProject(project => ({
+      ...project,
+      files: project.files.filter(file => file.aws_key !== aws_key)
+  }));
+  }
+
   const handleFileLoads = (e) => {
 
     // setDisableSaveBtn(false)
@@ -241,7 +248,7 @@ export default function UploadProject() {
                         <div className='row mb-1'>
                           <div className='col-12'>
                             <button 
-                              onClick={(e)=>removeFile(file.aws_key)}
+                              onClick={(e)=>removeMediaFile(file.aws_key)}
                               type="button" className="btn btn-outline-danger btn-sm">remove</button>
                           </div>
                         </div>
