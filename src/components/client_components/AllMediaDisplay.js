@@ -7,7 +7,7 @@ import ProjectApi from '../../api/ProjectApi'
 
 export default function AllMediaDisplay() {
 
-  const [mediaInfos, setMediaInfos] = useState([[]]);
+  const [mediaInfos, setMediaInfos] = useState([]);
 
   const [errorMsg, setErrorMsg] = useState("");
 
@@ -62,9 +62,8 @@ export default function AllMediaDisplay() {
                 <div className='row'>
                   {
                     mediaInfos.length > 0 &&
-                    mediaInfos.map((mediaList)=>(
+                    mediaInfos.map((fileInfo)=>(
                       
-                        mediaList.map((fileInfo) => (
                           <div key={fileInfo.aws_key} className='col-12 col-sm-4'>
 
                           <div className='row'>
@@ -92,7 +91,7 @@ export default function AllMediaDisplay() {
                           </div>
 
                         </div>
-                        ))
+                        
                       
                     ))
                   }
