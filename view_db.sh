@@ -1,0 +1,1 @@
+aws s3api get-object --profile folau --bucket db.folaukaveinga.com --key pitaconcrete/local/media_infos.json db.json

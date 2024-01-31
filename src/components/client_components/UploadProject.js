@@ -4,14 +4,22 @@ import { useState , useEffect} from "react";
 import axios from 'axios';
 import {FileType} from './FileType'
 import FileApi from '../../api/FileApi'
+import ProjectApi from '../../api/ProjectApi'
+
 
 export default function UploadProject() {
 
+  // Create a URLSearchParams instance from the query string
+  const urlParams = new URLSearchParams(window.location.search); 
+
+  let id = urlParams.get('id')
+
   const [project, setProject] = useState({
+    id: id,
     name: "",
     createdAt: "",
     description: "",
-    files: []
+    fileInfos: []
   });
 
   const [errorMsg, setErrorMsg] = useState("");
@@ -23,6 +31,13 @@ export default function UploadProject() {
   const mediaDomin = process.env.NEXT_PUBLIC_MEDIA_CLOUDFRONT_URL
 
   useEffect(() => {
+
+    console.log('id ', id)
+
+    if(id !==null && id !== undefined && id>0){
+      loadProject()
+    }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -33,18 +48,31 @@ export default function UploadProject() {
     }))
   }
 
+  const loadProject = () => {
+
+    ProjectApi.getById(id).then((response) => {
+      console.log("project add/update entry response: ", response.data);
+      setProject(response.data)
+    }).catch((error) => {
+      console.error("Error: ", error);
+      setErrorMsg(error.message)
+      console.error("Error: ", errorMsg);
+      setShowBusy(true)
+    });
+  }
+
   const addMediaFile = (fileInfo) => {
     setProject(project => ({
       ...project,
-      files: [...project.files, fileInfo]
+      fileInfos: [...project.fileInfos, fileInfo]
     }));
   }
 
   const removeMediaFile = (aws_key) => {
     setProject(project => ({
       ...project,
-      files: project.files.filter(file => file.aws_key !== aws_key)
-  }));
+      fileInfos: project.fileInfos.filter(file => file.aws_key !== aws_key)
+    }));
   }
 
   const handleFileLoads = (e) => {
@@ -101,9 +129,63 @@ export default function UploadProject() {
     }
   };
 
+  const createUpdate = () => {
+    console.log("createUpdate")
+    console.log(JSON.stringify(project))
+
+    setShowBusy(true)
+
+    ProjectApi.createUpdate(project).then((response) => {
+      console.log("project add/update entry response: ", response.data);
+      setProject(response.data)
+      populateIdParameter(response.data.id)
+    }).catch((error) => {
+      console.error("Error: ", error);
+      setErrorMsg(error.message)
+      console.error("Error: ", errorMsg);
+      setShowBusy(true)
+    });
+
+  }
+
+  const populateIdParameter = (id) => {
+    // Get the current URL
+    const url = new URL(window.location.href);
+
+    // Set the query parameter
+    url.searchParams.set('id', id);
+
+    // Use history.pushState to change the URL without reloading the page
+    window.history.pushState({}, '', url);
+  }
+
   return (
     <>
       <div className="container">
+        <div className="row">
+          <div className="col-6 col-sm-6">
+
+            <h4>Create/Update Project</h4>
+          
+          </div>
+          <div className='col-12 col-sm-6'>
+            <div className='row'>
+              <div className='col-12 col-sm-12 text-end'>
+                <button 
+                onClick={()=>createUpdate()}
+                // disabled={disableSaveBtn}
+                type="button" className="btn btn-outline-primary">Save</button>
+
+                <button 
+                onClick={()=>cancel()}
+                type="button" 
+                className="btn btn-outline-danger ms-2">Cancel</button>
+
+
+              </div>
+            </div>
+          </div>
+        </div>
         <div className="row">
           <div className="col-12 col-sm-12">
             <form>
@@ -129,7 +211,6 @@ export default function UploadProject() {
                     onChange={handleInputChange}
                     required
                     placeholder=""
-                    onKeyDown={(e)=>handleKeyDown(e)} 
                     />
                 </div>
                 <div className="col-12 col-sm-6">
@@ -168,61 +249,60 @@ export default function UploadProject() {
                 </div>
               </div>
 
-            <div className='row'>
-            <div className='col-sm-12'>
               <div className='row'>
-                {
-                  project.files.length > 0 &&
-                  project.files.map((file)=>(
-                    
-                      <div key={file.aws_key} className='col-12 col-sm-4 text-center'>
+                <div className='col-sm-12'>
+                  <div className='row'>
+                    {
+                      project.fileInfos.length > 0 &&
+                      project.fileInfos.map((fileInfo)=>(
+                        
+                          <div key={fileInfo.aws_key} className='col-12 col-sm-4 text-center'>
 
-                        <div className='row'>
-                          <div className='col-12'>
-                            {file.file_name}
+                            <div className='row'>
+                              <div className='col-12'>
+                                {fileInfo.file_name}
+                              </div>
+                            </div>
+
+                            <div className='row'>
+                              <div className='col-12 border'>
+                                {
+                                  fileInfo.file_ui_type === FileType.IMAGE &&
+                                  <img src={mediaDomin + `/`+ fileInfo.aws_key} className="img-fluid" alt="..."/>
+                                }
+                                {
+                                  fileInfo.file_ui_type === FileType.VIDEO &&
+                                  <video className="img-fluid" controls>
+                                    <source src={mediaDomin + `/`+ fileInfo.aws_key} type={fileInfo.content_type}></source>
+                                    Your browser does not support the video tag.
+                                  </video>
+                                }
+                                {
+                                  fileInfo.file_ui_type === FileType.PDF &&
+                                  <iframe 
+                                  src={mediaDomin + `/`+ fileInfo.aws_key} 
+                                  className="img-fluid"
+                                  title={fileInfo.file_name}>
+                                  </iframe>
+                                }
+                              </div>
+                            </div>
+
+                            <div className='row mb-1'>
+                              <div className='col-12'>
+                                <button 
+                                  onClick={(e)=>removeMediaFile(fileInfo.aws_key)}
+                                  type="button" className="btn btn-outline-danger btn-sm">remove</button>
+                              </div>
+                            </div>
+
                           </div>
-                        </div>
-
-                        <div className='row'>
-                          <div className='col-12 border'>
-                            {
-                              file.file_ui_type === FileType.IMAGE &&
-                              <img src={mediaDomin + `/`+ file.aws_key} className="img-fluid" alt="..."/>
-                            }
-                            {
-                              file.file_ui_type === FileType.VIDEO &&
-                              <video width="500" height="350" controls>
-                                 <source src={mediaDomin + `/`+ file.aws_key} type={file.content_type}></source>
-                                 Your browser does not support the video tag.
-                              </video>
-                            }
-                            {
-                              file.file_ui_type === FileType.PDF &&
-                              <iframe 
-                              src={mediaDomin + `/`+ file.aws_key} 
-                              width="500" 
-                              height="350" 
-                              title={file.file_name}>
-                              </iframe>
-                            }
-                          </div>
-                        </div>
-
-                        <div className='row mb-1'>
-                          <div className='col-12'>
-                            <button 
-                              onClick={(e)=>removeMediaFile(file.aws_key)}
-                              type="button" className="btn btn-outline-danger btn-sm">remove</button>
-                          </div>
-                        </div>
-
-                      </div>
-                    
-                  ))
-                }
+                        
+                      ))
+                    }
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
       
               {/* <button onClick={()=>signInWithEmailAndPassword()} className="btn btn-primary w-100 py-2" type="button">Sign In</button> */}
             </form>
