@@ -10,12 +10,10 @@ import ProjectApi from '../../api/ProjectApi'
 export default function UploadProject() {
 
   // Create a URLSearchParams instance from the query string
-  const urlParams = new URLSearchParams(window.location.search); 
 
-  let id = urlParams.get('id')
 
   const [project, setProject] = useState({
-    id: id,
+    id: 0,
     name: "",
     createdAt: "",
     description: "",
@@ -23,6 +21,7 @@ export default function UploadProject() {
   });
 
   const [errorMsg, setErrorMsg] = useState("");
+  const [alertMsg, setAlertMsg] = useState("");
 
   const [disableSaveBtn, setDisableSaveBtn] = useState(true);
 
@@ -32,10 +31,14 @@ export default function UploadProject() {
 
   useEffect(() => {
 
+    const urlParams = new URLSearchParams(window.location.search); 
+
+    let id = urlParams.get('id')
+
     console.log('id ', id)
 
     if(id !==null && id !== undefined && id>0){
-      loadProject()
+      loadProject(id)
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -48,7 +51,7 @@ export default function UploadProject() {
     }))
   }
 
-  const loadProject = () => {
+  const loadProject = (id) => {
 
     ProjectApi.getById(id).then((response) => {
       console.log("project add/update entry response: ", response.data);
@@ -80,7 +83,10 @@ export default function UploadProject() {
     // setDisableSaveBtn(false)
 
     console.log("handleFileLoads")
-    let files = e.target.files
+    let fileList = e.target.files; // This is a FileList object
+
+    // Convert FileList to Array
+    let files = Array.from(fileList);
 
     // setSelectedFiles(files);
 
@@ -95,26 +101,30 @@ export default function UploadProject() {
 
         let fileInfos = response.data
 
-        for (let i = 0; i < files.length; i++) {
-          let file = files[i];
-          let fileInfo = fileInfos[i]
+        setAlertMsg("Media uploading to Cloud...")
 
-          FileApi.uploadFileToS3(file, fileInfo['url']).then((response) => {
+        let uploadPromises = files.map((file, index) => {
+          let fileInfo = fileInfos[index];
+          return FileApi.uploadFileToS3(file, fileInfo['url']);
+        });
 
-            console.log("file uploaded to s3")
-
-            addMediaFile(fileInfo)
+        Promise.all(uploadPromises).then((responses) => {
+            // All files are uploaded successfully
+            responses.forEach((response, index) => {
+                console.log("File uploaded to S3:", files[index].name);
+                addMediaFile(fileInfos[index]);
+            });
             
-
-          }).catch((error) => {
-            console.error("Error: ", error);
-            setErrorMsg(error.message)
-            console.error("Error: ", errorMsg);
-    
-            setDisableSaveBtn(false)
-            setShowBusy(false)
-          });
-        }
+            setAlertMsg("Media uploaded.")
+      
+        }).catch((error) => {
+            // Handle the error if any of the file uploads failed
+            console.error("Error in uploading files: ", error);
+            setErrorMsg(error.message);
+            setDisableSaveBtn(false);
+            setShowBusy(false);
+            setAlertMsg("");
+        });
 
         
       }).catch((error) => {
@@ -124,6 +134,8 @@ export default function UploadProject() {
 
         setDisableSaveBtn(false)
         setShowBusy(false)
+
+        setAlertMsg("")
       });
 
     }
@@ -139,6 +151,8 @@ export default function UploadProject() {
       console.log("project add/update entry response: ", response.data);
       setProject(response.data)
       populateIdParameter(response.data.id)
+
+      setAlertMsg("Project saved!")
     }).catch((error) => {
       console.error("Error: ", error);
       setErrorMsg(error.message)
@@ -162,7 +176,7 @@ export default function UploadProject() {
   return (
     <>
       <div className="container">
-        <div className="row">
+        <div className="row mb-1">
           <div className="col-6 col-sm-6">
 
             <h4>Create/Update Project</h4>
@@ -189,13 +203,22 @@ export default function UploadProject() {
         <div className="row">
           <div className="col-12 col-sm-12">
             <form>
-              <h1 className="h3 mb-3 fw-normal"></h1>
               <div className='row'>
                 <div className="col-12 col-md-12">
                   {
                     errorMsg && 
                     <div className="alert alert-danger">
                       {errorMsg}
+                    </div>
+                  }
+                </div>
+              </div>
+              <div className='row'>
+                <div className="col-12 col-md-12">
+                  {
+                    alertMsg && 
+                    <div className="alert alert-success">
+                      {alertMsg}
                     </div>
                   }
                 </div>
