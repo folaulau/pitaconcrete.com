@@ -320,7 +320,7 @@ export default function UploadProject() {
                     {
                       project.fileInfos.length > 0 &&
                       project.fileInfos.map((fileInfo)=>(
-                        
+                          (fileInfo.aws_key && fileInfo.aws_key !== '') &&
                           <div key={fileInfo.aws_key} className='col-12 col-sm-4 text-center'>
 
                             
