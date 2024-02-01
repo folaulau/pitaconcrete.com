@@ -221,7 +221,7 @@ export default function UploadProject() {
         <div className="row mb-1">
           <div className="col-6 col-sm-6">
 
-            <h4>Create/Update Project</h4>
+            <h4>Project</h4>
           
           </div>
           <div className='col-12 col-sm-6'>
