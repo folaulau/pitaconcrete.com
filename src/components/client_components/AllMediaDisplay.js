@@ -3,19 +3,23 @@
 import { useState , useEffect} from "react";
 import {FileType} from './FileType'
 import ProjectApi from '../../api/ProjectApi'
+import FilterPool from './FilterPool';
+import { Tags } from './ProjectTag'
 
 
 export default function AllMediaDisplay() {
 
-  const [mediaInfos, setMediaInfos] = useState([]);
+  const [mediaInfos, setMediaInfos] = useState([{aws_key: ""}]);
+
+  const [serviceFilters, setServiceFilters] = useState([{name:'',selected: false}]);
 
   const [errorMsg, setErrorMsg] = useState("");
-
-  const [showBusy, setShowBusy] = useState(false);
 
   const mediaDomin = process.env.NEXT_PUBLIC_MEDIA_CLOUDFRONT_URL
 
   useEffect(() => {
+
+    setServiceFilters(Tags.map((tag, index) => ({ name: tag, selected: index === 0 })));
 
     loadMediaInfos()
 
@@ -25,8 +29,6 @@ export default function AllMediaDisplay() {
   const loadMediaInfos = () => {
     console.log("loadMediaInfos")
 
-    setShowBusy(true)
-
     ProjectApi.getAllMedia().then((response) => {
       console.log("get all media response: ", response.data);
       setMediaInfos(response.data)
@@ -34,8 +36,39 @@ export default function AllMediaDisplay() {
       console.error("Error: ", error);
       setErrorMsg(error.message)
       console.error("Error: ", errorMsg);
-      setShowBusy(true)
     });
+
+  }
+
+  const clickFilter = (clickedFilter) => {
+    console.log("clickFilter")
+    
+    let all = Tags[0]
+    let newFilters = []
+    if (clickedFilter.name === all) {
+      newFilters = serviceFilters.map(filter => ({
+        ...filter,
+        selected: filter.name === all ? !clickedFilter.selected : false
+      }));
+    } else {
+      newFilters= serviceFilters.map(filter => {
+        if (filter.name === clickedFilter.name) {
+          return { ...filter, selected: !filter.selected };
+        }
+        if (filter.name === all) {
+          return { ...filter, selected: false };
+        }
+        return filter;
+      });
+    }
+
+    setServiceFilters(newFilters)
+
+    if (clickedFilter.name !== all) {
+
+
+
+    }
 
   }
 
@@ -58,12 +91,29 @@ export default function AllMediaDisplay() {
             </div>
 
             <div className='row'>
-              <div className='col-sm-12'>
+              <div className='col-12 col-sm-12'>
+                <div className='row mb-2'>
+                  <div className='col-12 col-sm-12'>
+                    {
+                      serviceFilters.map((filter, index) => (
+                        <button 
+                            key={index}
+                            className={`btn btn-outline-primary me-1 btn-sm ${filter.selected ? 'active' : ''}`}
+                            type="button"
+                            onClick={() => clickFilter(filter)}
+                        >
+                          {filter.name}
+                        </button>
+                      ))
+                    }
+                  </div>
+                </div>
+
                 <div className='row'>
                   {
                     mediaInfos.length > 0 &&
                     mediaInfos.map((fileInfo)=>(
-                      
+                
                           <div key={fileInfo.aws_key} className='col-12 col-sm-4'>
 
                           <div className='row'>

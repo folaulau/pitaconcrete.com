@@ -5,7 +5,8 @@ import axios from 'axios';
 import {FileType} from './FileType'
 import FileApi from '../../api/FileApi'
 import ProjectApi from '../../api/ProjectApi'
-
+import { Tags } from './ProjectTag'
+import TagPool from './TagPool'
 
 export default function UploadProject() {
 
@@ -17,7 +18,7 @@ export default function UploadProject() {
     name: "",
     createdAt: "",
     description: "",
-    fileInfos: []
+    fileInfos: [{aws_key:'', content_type:'', file_name:'', projectId:0, services:[{name:'',selected:false}]}]
   });
 
   const [errorMsg, setErrorMsg] = useState("");
@@ -27,9 +28,13 @@ export default function UploadProject() {
 
   const [showBusy, setShowBusy] = useState(false);
 
+  const [serviceFilters, setServiceFilters] = useState([{name:'',selected: false}]);
+
   const mediaDomin = process.env.NEXT_PUBLIC_MEDIA_CLOUDFRONT_URL
 
   useEffect(() => {
+
+    setServiceFilters(Tags.map((tag, index) => ({ name: tag, selected: index === 0 })));
 
     const urlParams = new URLSearchParams(window.location.search); 
 
@@ -173,6 +178,43 @@ export default function UploadProject() {
     window.history.pushState({}, '', url);
   }
 
+  const clickService = (clickedFilter, fileInfo) => {
+
+    console.log("clickedFilter, ", clickedFilter);
+    console.log("fileInfo, ", fileInfo);
+
+    let updatedServices = [];
+
+    // Check if the clicked filter is 'All'
+    if (clickedFilter.name === 'All') {
+        // Set 'All' to selected and all others to not selected
+        updatedServices = fileInfo.services.map(service => ({
+            ...service,
+            selected: service.name === 'All'
+        }));
+    } else {
+        // For any other filter, toggle its selected state and set 'All' to false
+        updatedServices = fileInfo.services.map(service => ({
+            ...service,
+            selected: service.name === clickedFilter.name ? !service.selected : (service.name === 'All' ? false : service.selected)
+        }));
+    }
+
+    // Update the project.fileInfos array
+    const updatedFileInfos = project.fileInfos.map(fi => {
+        if (fi.aws_key === fileInfo.aws_key) {
+            return { ...fi, services: updatedServices };
+        }
+        return fi;
+    });
+
+    setProject(prevProject => ({
+        ...prevProject,
+        fileInfos: updatedFileInfos
+    }));
+
+  }
+
   return (
     <>
       <div className="container">
@@ -273,7 +315,7 @@ export default function UploadProject() {
               </div>
 
               <div className='row'>
-                <div className='col-sm-12'>
+                <div className='col-12 col-sm-12 mb-5'>
                   <div className='row'>
                     {
                       project.fileInfos.length > 0 &&
@@ -281,9 +323,40 @@ export default function UploadProject() {
                         
                           <div key={fileInfo.aws_key} className='col-12 col-sm-4 text-center'>
 
+                            
                             <div className='row'>
                               <div className='col-12'>
-                                {fileInfo.file_name}
+                                {/* <TagPool /> */}
+
+                                {
+                                  fileInfo.services !== undefined && fileInfo.services.length > 0 && 
+                                  fileInfo.services.map((filter, index) => (
+                                    <button 
+                                        key={index}
+                                        className={`btn btn-outline-primary me-1 btn-sm ${filter.selected ? 'active' : ''}`}
+                                        style={{ padding: '1px', margin: '5px' }}
+                                        type="button"
+                                        onClick={() => clickService(filter, fileInfo)}
+                                    >
+                                      {filter.name}
+                                    </button>
+                                  ))
+                                }
+
+                                {
+                                  (fileInfo.services === undefined || fileInfo.services.length <= 0) &&
+                                  serviceFilters.map((filter, index) => (
+                                    <button 
+                                        key={index}
+                                        className={`btn btn-outline-primary me-1 btn-sm ${filter.selected ? 'active' : ''}`}
+                                        type="button"
+                                        style={{ padding: '1px', margin: '5px' }}
+                                        onClick={() => clickService(filter, fileInfo)}
+                                    >
+                                      {filter.name}
+                                    </button>
+                                  ))
+                                }
                               </div>
                             </div>
 
@@ -291,7 +364,10 @@ export default function UploadProject() {
                               <div className='col-12 border'>
                                 {
                                   fileInfo.file_ui_type === FileType.IMAGE &&
-                                  <img src={mediaDomin + `/`+ fileInfo.aws_key} className="img-fluid" alt="..."/>
+                                  <img 
+                                    src={mediaDomin + `/`+ fileInfo.aws_key} 
+                                    className="img-fluid"
+                                    alt="..."/>
                                 }
                                 {
                                   fileInfo.file_ui_type === FileType.VIDEO &&
@@ -312,7 +388,10 @@ export default function UploadProject() {
                             </div>
 
                             <div className='row mb-1'>
-                              <div className='col-12'>
+                              <div className='col-6'>
+                                {fileInfo.file_name}
+                              </div>
+                              <div className='col-6'>
                                 <button 
                                   onClick={(e)=>removeMediaFile(fileInfo.aws_key)}
                                   type="button" className="btn btn-outline-danger btn-sm">remove</button>
