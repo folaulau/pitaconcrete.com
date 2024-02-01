@@ -62,6 +62,15 @@ export default function AllMediaDisplay() {
       });
     }
 
+    // Check if no filter is selected and set 'All' to true
+    const isAnyFilterSelected = newFilters.some(filter => filter.selected);
+    if (!isAnyFilterSelected) {
+      newFilters = newFilters.map(filter => ({
+        ...filter,
+        selected: filter.name === all
+      }));
+    }
+
     setServiceFilters(newFilters)
 
     if (clickedFilter.name !== all) {
@@ -113,10 +122,10 @@ export default function AllMediaDisplay() {
                   {
                     mediaInfos.length > 0 &&
                     mediaInfos.map((fileInfo)=>(
-                
+                          (fileInfo.aws_key && fileInfo.aws_key !== '') &&
                           <div key={fileInfo.aws_key} className='col-12 col-sm-4'>
 
-                          <div className='row'>
+                          <div className='row border'>
                             <div className='col-12 px-2'>
                               {
                                 fileInfo.file_ui_type === FileType.IMAGE &&
