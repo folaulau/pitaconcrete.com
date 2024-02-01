@@ -25,7 +25,8 @@ export default function RootLayout({
           </a>
 
           <ul className="nav nav-pills">
-            <li className="nav-item"><a href="/admin/project-create-update" className="nav-link">Create Update Project</a></li>
+            <li className="nav-item"><a href="/admin/project-create-update" className="nav-link">Project</a></li>
+            <li className="nav-item"><a href="/admin/projects" className="nav-link">Projects</a></li>
 
           </ul>
         </header>

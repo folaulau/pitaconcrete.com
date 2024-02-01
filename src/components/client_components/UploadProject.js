@@ -16,6 +16,7 @@ export default function UploadProject() {
   const [project, setProject] = useState({
     id: 0,
     name: "",
+    address:"",
     createdAt: "",
     description: "",
     fileInfos: [{aws_key:'', content_type:'', file_name:'', projectId:0, services:[{name:'',selected:false}]}]
@@ -185,6 +186,10 @@ export default function UploadProject() {
 
     let updatedServices = [];
 
+    if(fileInfo.services === null || fileInfo.services === undefined){
+      fileInfo.services = serviceFilters
+    }
+
     // Check if the clicked filter is 'All'
     if (clickedFilter.name === 'All') {
         // Set 'All' to selected and all others to not selected
@@ -198,6 +203,15 @@ export default function UploadProject() {
             ...service,
             selected: service.name === clickedFilter.name ? !service.selected : (service.name === 'All' ? false : service.selected)
         }));
+    }
+
+    // Check if any service is selected, if not, set 'All' to true
+    const isAnyServiceSelected = updatedServices.some(service => service.selected);
+    if (!isAnyServiceSelected) {
+      updatedServices = updatedServices.map(service => ({
+        ...service,
+        selected: service.name === 'All'
+      }));
     }
 
     // Update the project.fileInfos array
@@ -266,19 +280,20 @@ export default function UploadProject() {
                 </div>
               </div>
               <div className="row">
-                <div className="col-12 col-sm-6">
-                <label className="form-label">Name</label>
-                    <input 
-                    type="text" 
-                    className="form-control"
-                    name="name"
-                    value={project.name}
-                    onChange={handleInputChange}
-                    required
-                    placeholder=""
-                    />
+                <div className="col-12 col-sm-3">
+                  <label className="form-label">Name</label>
+                  <input 
+                  type="text" 
+                  className="form-control"
+                  name="name"
+                  value={project.name}
+                  onChange={handleInputChange}
+                  required
+                  placeholder=""
+                  />
                 </div>
-                <div className="col-12 col-sm-6">
+   
+                <div className="col-12 col-sm-3">
                   <label className="form-label"><b>Date</b></label>
                   <input 
                     name="createdAt"
@@ -287,6 +302,18 @@ export default function UploadProject() {
                     type="date" 
                     className="form-control"/>
              
+                </div>
+                <div className="col-12 col-sm-6">
+                  <label className="form-label">Address</label>
+                  <input 
+                  type="text" 
+                  className="form-control"
+                  name="address"
+                  value={project.address}
+                  onChange={handleInputChange}
+                  required
+                  placeholder=""
+                  />
                 </div>
               </div>
               <div className="row">
@@ -394,7 +421,10 @@ export default function UploadProject() {
                               <div className='col-6'>
                                 <button 
                                   onClick={(e)=>removeMediaFile(fileInfo.aws_key)}
-                                  type="button" className="btn btn-outline-danger btn-sm">remove</button>
+                                  type="button" 
+                                  className="btn btn-outline-danger btn-sm"
+                                  style={{ padding: '1px' }}
+                                  >remove</button>
                               </div>
                             </div>
 
