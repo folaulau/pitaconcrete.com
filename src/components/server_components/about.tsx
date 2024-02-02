@@ -18,7 +18,7 @@ export default function AboutComp() {
                                 src='/pita_profile.jpg'
                                 alt="Picture of the author"
                                 className="img-fluid rounded border"
-                                />
+                                ></img>
                             </div>
                         </div>
                     </div>
