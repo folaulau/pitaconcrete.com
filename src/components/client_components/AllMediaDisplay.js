@@ -5,7 +5,6 @@ import {FileType} from './FileType'
 import ProjectApi from '../../api/ProjectApi'
 import FilterPool from './FilterPool';
 import { Tags } from './ProjectTag'
-import Image from 'next/image'
 
 
 export default function AllMediaDisplay() {
@@ -126,7 +125,7 @@ export default function AllMediaDisplay() {
                             <div className='col-12 px-2'>
                               {
                                 fileInfo.file_ui_type === FileType.IMAGE &&
-                                <Image src={mediaDomin + `/`+ fileInfo.aws_key} className="img-thumbnail" alt="..."/>
+                                <img src={mediaDomin + `/`+ fileInfo.aws_key} className="img-thumbnail" alt="..."/>
                               }
                               {
                                 fileInfo.file_ui_type === FileType.VIDEO &&
