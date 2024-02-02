@@ -34,12 +34,12 @@ export default function AboutComp() {
                                     </div>
                                     <div className="row mt-2">
                                         <div className="col-12">
-                                            As a dedicated contractor, there's a unique joy I experience in witnessing our clients' reactions during the final reveal of their project. My top priority is ensuring that the final result not only meets but exceeds our initial agreement, guaranteeing complete satisfaction and happiness for our clients.
+                                            As a dedicated contractor, there&apos;s a unique joy I experience in witnessing our clients&apos; reactions during the final reveal of their project. My top priority is ensuring that the final result not only meets but exceeds our initial agreement, guaranteeing complete satisfaction and happiness for our clients.
                                         </div>
                                     </div>
                                     <div className="row mt-2">
                                         <div className="col-12">
-                                            The transformation of a space from start to finish is always remarkable, but what truly motivates me is seeing our clients' faces light up in approval of the work we've done for them. This is the true measure of success for me and my team.
+                                            The transformation of a space from start to finish is always remarkable, but what truly motivates me is seeing our clients&apos; faces light up in approval of the work we&apos;ve done for them. This is the true measure of success for me and my team.
                                         </div>
                                     </div>
                                     <div className="row mt-2">
@@ -49,7 +49,7 @@ export default function AboutComp() {
                                     </div>
                                     <div className="row mt-2">
                                         <div className="col-12">
-                                            I take great pride in the quality of our work, and it's my personal mission to ensure that you feel confident and reassured in choosing us for your project needs. Let's work together to create something truly remarkable.
+                                            I take great pride in the quality of our work, and it&apos;s my personal mission to ensure that you feel confident and reassured in choosing us for your project needs. Let&apos;s work together to create something truly remarkable.
                                         </div>
                                     </div>
 
