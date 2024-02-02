@@ -24,7 +24,7 @@ export default function AboutComp() {
                         <div className="card">
                             <div className="card-body">
                                 <h5>My Story</h5>
-                                <p className="card-text">
+                                <div className="card-text">
 
                                     <div className="row mt-2">
                                         <div className="col-12">
@@ -65,7 +65,7 @@ export default function AboutComp() {
                                         </div>
                                     </div>
                         
-                                </p>
+                                </div>
                     
                             </div>
                         </div>
