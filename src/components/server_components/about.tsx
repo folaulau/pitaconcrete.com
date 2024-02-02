@@ -1,4 +1,3 @@
-import Image from 'next/image'
 
 export default function AboutComp() {
 
@@ -13,7 +12,7 @@ export default function AboutComp() {
                     <div className="col-12 col-sm-3">
                         <div className="row">
                             <div className="col-12">
-                                <Image
+                                <img
                                 src='/pita_profile.jpg'
                                 alt="Picture of the author"
                                 className="img-fluid rounded border"
