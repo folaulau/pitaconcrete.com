@@ -7,6 +7,7 @@ import FileApi from '../../api/FileApi'
 import ProjectApi from '../../api/ProjectApi'
 import { Tags } from './ProjectTag'
 import TagPool from './TagPool'
+import Image from 'next/image'
 
 export default function UploadProject() {
 
@@ -391,7 +392,7 @@ export default function UploadProject() {
                               <div className='col-12 border'>
                                 {
                                   fileInfo.file_ui_type === FileType.IMAGE &&
-                                  <img 
+                                  <Image 
                                     src={mediaDomin + `/`+ fileInfo.aws_key} 
                                     className="img-fluid"
                                     alt="..."/>
