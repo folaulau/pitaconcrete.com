@@ -14,36 +14,60 @@ export default function AboutComp() {
                 <div className="col-sm-3">
                     <div className="row">
                         <div className="col-12">
-                        <img
-                            
-                            src='https://static.dc.com/sites/default/files/imce/2022/09-SEP/Batman%20Day%20Logo_6316c6ae307851.09653883.jpg'
+                            <img
+                            src='/pita_profile.jpg'
                             alt="Picture of the author"
                             className="img-fluid"
-                            // width={500} automatically provided
-                            // height={500} automatically provided
-                            // blurDataURL="data:..." automatically provided
-                            // placeholder="blur" // Optional blur-up while loading
-                            ></img>
-                            {/* <img className="img-fluid" src="/assets/img/dad-profile.jpeg" alt="profile-image" /> */}
+                            />
                         </div>
                     </div>
                 </div>
                 <div className="col-sm-9">
-                    <div className="our-story">
-                    <h3>My Story</h3>
-                    <p>My name is Peter Fotu. I have been in the construction industry for more than 18 years. 
-                        I am passionate about helping people and take pride in my work. I have worked with many clients and completed many projects. I value quality over speed.
-                    </p>
+                    <div className="container mt-5">
+                        <div className="card">
+                            <div className="card-body">
+                            <h2 className="card-title">My Story</h2>
+                            <p className="card-text">
+
+                                <div className="row mt-2">
+                                    <div className="col-12">
+                                        My name is Peter Fotu. I have over 18 years of experience in concrete with a focus on providing top quality service.
+                                    </div>
+                                </div>
+                                <div className="row mt-2">
+                                    <div className="col-12">
+                                        As a dedicated contractor, there's a unique joy I experience in witnessing our clients' reactions during the final reveal of their project. My top priority is ensuring that the final result not only meets but exceeds our initial agreement, guaranteeing complete satisfaction and happiness for our clients.
+                                    </div>
+                                </div>
+                                <div className="row mt-2">
+                                    <div className="col-12">
+                                        The transformation of a space from start to finish is always remarkable, but what truly motivates me is seeing our clients' faces light up in approval of the work we've done for them. This is the true measure of success for me and my team.
+                                    </div>
+                                </div>
+                                <div className="row mt-2">
+                                    <div className="col-12">
+                                        Our expertise spans a wide range of services, including comprehensive landscaping designs, efficient sprinkler system installations, meticulous tree trimming and removal, as well as skilled demolition, precise framing, and seamless drywall services. We take pride in our versatility and are eager to assist you in bringing your vision to life.
+                                    </div>
+                                </div>
+                                <div className="row mt-2">
+                                    <div className="col-12">
+                                        I take great pride in the quality of our work, and it's my personal mission to ensure that you feel confident and reassured in choosing us for your project needs. Let's work together to create something truly remarkable.
+                                    </div>
+                                </div>
+                    
+                            </p>
+                            <h3 className="mt-4">My Credentials</h3>
+                            <p className="card-text">
+                                License Number: 13609914-5501
+                                <a href="#" className="btn btn-primary btn-sm">verify here</a>
+                            </p>
+                            <p className="card-text">
+                                Insured by <a href="#" className="link-primary">Insurance Company</a>
+                            </p>
+                            </div>
+                        </div>
                     </div>
-                    <div className="our-story">
-                    <h3>My Credentials</h3>
-                    <p>
-                        License Number: 13609914-5501, verify <a href="https://secure.utah.gov/llv/search/index.html#" target="_blank">here</a>
-                    </p>
-                    <p>
-                        Insured by <a href="https://www.auto-owners.com/" target="_blank">Insurance Company</a> 
-                    </p>
-                    </div>
+
                 </div>
 
                 </div>

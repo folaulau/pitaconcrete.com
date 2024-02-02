@@ -34,3 +34,12 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+Sites to get inspiration from:
+1. https://lunaconfoundation.org/about-us/
+2. https://openasset.com/blog/construction-website-examples/
+3. https://www.mccarthy.com
+4. https://www.gosite.com/blog/construction-websites
+5. https://losangelesgeneralcontractor.com/
+6. https://valleyhomeimprovement.com/portfolio/basements
+7. 

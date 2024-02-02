@@ -9,7 +9,7 @@ import { Tags } from './ProjectTag'
 
 export default function AllMediaDisplay() {
 
-  const [mediaInfos, setMediaInfos] = useState([{aws_key: ""}]);
+  const [mediaInfos, setMediaInfos] = useState([{aws_key: "", file_name:'', projectId:0, services:[{name:'',selected:false}]}]);
 
   const [serviceFilters, setServiceFilters] = useState([{name:'',selected: false}]);
 
@@ -73,11 +73,7 @@ export default function AllMediaDisplay() {
 
     setServiceFilters(newFilters)
 
-    if (clickedFilter.name !== all) {
 
-
-
-    }
 
   }
 
