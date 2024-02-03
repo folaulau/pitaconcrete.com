@@ -5,6 +5,7 @@ import {FileType} from './FileType'
 import ProjectApi from '../../api/ProjectApi'
 import FilterPool from './FilterPool';
 import { Tags } from './ProjectTag'
+import './AllMediaDisplay.css'
 
 
 export default function AllMediaDisplay() {
@@ -121,11 +122,12 @@ export default function AllMediaDisplay() {
                           (fileInfo.aws_key && fileInfo.aws_key !== '') &&
                           <div key={fileInfo.aws_key} className='col-12 col-sm-4'>
 
-                          <div className='row border'>
+                          <div className='row'>
                             <div className='col-12 px-2'>
+                              <div class="aspect-ratio-box">
                               {
                                 fileInfo.file_ui_type === FileType.IMAGE &&
-                                <img src={mediaDomin + `/`+ fileInfo.aws_key} className="img-thumbnail" alt="..."/>
+                                <img src={mediaDomin + `/`+ fileInfo.aws_key} className="img-thumbnail image-centered" alt="..."/>
                               }
                               {
                                 fileInfo.file_ui_type === FileType.VIDEO &&
@@ -142,6 +144,7 @@ export default function AllMediaDisplay() {
                                 title={fileInfo.file_name}>
                                 </iframe>
                               }
+                              </div>
                             </div>
                           </div>
 
