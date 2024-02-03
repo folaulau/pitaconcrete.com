@@ -28,7 +28,7 @@ export default function AboutComp() {
 
                                     <div className="row mt-2">
                                         <div className="col-12">
-                                            My name is Peter Fotu. I have over 18 years of experience in concrete with a focus on providing top quality service.
+                                            Hello, I am Peter Fotu. With over 18 years of experience in the concrete industry, I have dedicated my career to mastering the art of concrete work, ensuring that every project I undertake is a testament to top-quality service. My journey began with a robust training and working experience with the Local 500 Union, where I honed my skills for 5 years. This period was integral in shaping my work ethic and my commitment to excellence in all aspects of concrete construction and landscaping services.
                                         </div>
                                     </div>
                                     <div className="row mt-2">
