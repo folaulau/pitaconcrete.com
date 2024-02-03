@@ -28,7 +28,12 @@ export default function AboutComp() {
 
                                     <div className="row mt-2">
                                         <div className="col-12">
-                                            Hello, I am Peter Fotu. With over 18 years of experience in the concrete industry, I have dedicated my career to mastering the art of concrete work, ensuring that every project I undertake is a testament to top-quality service. My journey began with a robust training and working experience with the Local 500 Union, where I honed my skills for 5 years. This period was integral in shaping my work ethic and my commitment to excellence in all aspects of concrete construction and landscaping services.
+                                        Hello, I am Peter Fotu. My journey in the world of concrete and construction spans over 18 years, beginning when I was just 16 years old, working alongside my father. This early experience laid the foundation for my deep-rooted passion and understanding of the trade. It taught me not just the skills of the craft, but also the value of hard work, precision, and client satisfaction.
+                                        </div>
+                                    </div>
+                                    <div className="row mt-2">
+                                        <div className="col-12">
+                                        Years later, this path led me to join the Local 500 Union, where I further honed my expertise for 5 years. This experience was pivotal, equipping me with a blend of traditional techniques and innovative practices, setting me apart in the industry.
                                         </div>
                                     </div>
                                     <div className="row mt-2">
