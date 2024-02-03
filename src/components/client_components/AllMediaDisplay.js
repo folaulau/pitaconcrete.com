@@ -118,13 +118,13 @@ export default function AllMediaDisplay() {
                 <div className='row'>
                   {
                     mediaInfos.length > 0 &&
-                    mediaInfos.map((fileInfo)=>(
+                    mediaInfos.map((fileInfo, index)=>(
                           (fileInfo.aws_key && fileInfo.aws_key !== '') &&
-                          <div key={fileInfo.aws_key} className='col-12 col-sm-4'>
+                          <div key={index} className='col-12 col-sm-4'>
 
                           <div className='row'>
                             <div className='col-12 px-2'>
-                              <div class="aspect-ratio-box">
+                              <div className="aspect-ratio-box">
                               {
                                 fileInfo.file_ui_type === FileType.IMAGE &&
                                 <img src={mediaDomin + `/`+ fileInfo.aws_key} className="img-thumbnail image-centered" alt="..."/>
