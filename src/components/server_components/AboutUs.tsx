@@ -146,7 +146,7 @@ export default function AboutUsComp() {
                                             <ul className="">
                                                 <li className="about-us-check-list about-us-list-group-item-check p-1">Empowering our clients by not only solving their problems but also bringing their visions and needs to fruition with precision and care.</li>
                                                 <li className="about-us-check-list about-us-list-group-item-check p-1">Committed to guiding every project to its successful completion, tackling challenges head-on with innovative solutions.</li>
-                                                <li className="about-us-check-list about-us-list-group-item-check p-1">Upholding integrity as our core principle, we believe in doing what's right for our clients and our community, regardless of the cost.</li>
+                                                <li className="about-us-check-list about-us-list-group-item-check p-1">Upholding integrity as our core principle, we believe in doing what is right for our clients and our community, regardless of the cost.</li>
                                                 <li className="about-us-check-list about-us-list-group-item-check p-1">At the heart of our business is a dedication to caring for people, ensuring that every interaction and service positively impacts lives.</li>
                                             </ul>
                                         </div>
@@ -175,7 +175,7 @@ export default function AboutUsComp() {
                                     <div className="row mt-1">
                                         <div className="col-12">
                                             <ul className="">
-                                                <li className="about-us-check-list about-us-list-group-item-check p-1">Balance - We strive to achieve the perfect harmony in our solutions, considering all essential factors to meet our clients' unique needs.</li>
+                                                <li className="about-us-check-list about-us-list-group-item-check p-1">Balance - We strive to achieve the perfect harmony in our solutions, considering all essential factors to meet our clients&#39; unique needs.</li>
                                                 <li className="about-us-check-list about-us-list-group-item-check p-1">Value - Our commitment is to consistently deliver exceptional value, surpassing expectations with every service we provide.</li>
                                                 <li className="about-us-check-list about-us-list-group-item-check p-1">Diligence - Our resolve never wavers; we persist tirelessly to ensure every task is completed to the highest standard.</li>
                                                 <li className="about-us-check-list about-us-list-group-item-check p-1">Excellence - In every aspect of our work, from quality to customer experience, our aim is to achieve and uphold excellence.</li>
