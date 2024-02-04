@@ -2,6 +2,7 @@
 .headerActiveLink {
   color: #0d6efd; /* Replace with the color you want for active links */
   font-weight: bold;
+  text-decoration: underline;
 }
   
 .headerNavLink {
