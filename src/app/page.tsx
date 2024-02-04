@@ -3,7 +3,7 @@ import { Button } from 'react-bootstrap';
 import Carousel from 'react-bootstrap/Carousel';
 import HeroCarousel from '../components/client_components/HeroCarousel'
 
-import AboutComp from '@/components/server_components/about';
+import AboutComp from '@/components/server_components/AboutUs';
 
 export default function Home() {
 

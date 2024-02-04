@@ -42,4 +42,12 @@ Sites to get inspiration from:
 4. https://www.gosite.com/blog/construction-websites
 5. https://losangelesgeneralcontractor.com/
 6. https://valleyhomeimprovement.com/portfolio/basements
+
+Concrete Contractor Portfolio
+1. https://www.dandgconcreteconstruction.com/
+2. https://rangerconcretecontractors.com/
+3. https://westlakeconcrete.weebly.com/
+4. https://www.kalkoconstruction.com/
+5. https://www.boldconcrete.org/
+6. https://www.gandgconcrete.com/residential/driveways/
 7. 

@@ -1,0 +1,8 @@
+.about-us-check-list{
+    list-style-type: none; 
+}
+
+.about-us-list-group-item-check::before {
+    content: "\2713\0020"; /* Unicode for check mark */
+    color: green; /* Color for the check mark */
+}
