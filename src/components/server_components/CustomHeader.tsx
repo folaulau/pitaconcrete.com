@@ -2,6 +2,7 @@
  
 import { usePathname } from 'next/navigation'
 import { useState , useEffect} from "react"
+import styles from './CustomHeader.module.css'
 
 export default function CustomHeader() {
     
@@ -25,19 +26,19 @@ export default function CustomHeader() {
 
             <ul className="nav nav-pills">
                 <li className="nav-item">
-                    <a href="/" className={`nav-link ${isActive('/') ? 'active' : ''}`} aria-current="page">Home</a>
+                    <a href="/" className={`nav-link ${isActive('/') ? styles.headerActiveLink : styles.headerNavLink}`} aria-current="page">Home</a>
                 </li>
                 <li className="nav-item">
-                    <a href="/about" className={`nav-link ${isActive('/about/') ? 'active' : ''}`}>About Us</a>
+                    <a href="/about" className={`nav-link ${isActive('/about/') ? styles.headerActiveLink : styles.headerNavLink}`}>About Us</a>
                 </li>
                 <li className="nav-item">
-                    <a href="/services" className={`nav-link ${isActive('/services/') ? 'active' : ''}`}>Services</a>
+                    <a href="/services" className={`nav-link ${isActive('/services/') ? styles.headerActiveLink : styles.headerNavLink}`}>Services</a>
                 </li>
                 <li className="nav-item">
-                    <a href="/projects" className={`nav-link ${isActive('/projects/') ? 'active' : ''}`}>Projects</a>
+                    <a href="/projects" className={`nav-link ${isActive('/projects/') ? styles.headerActiveLink : styles.headerNavLink}`}>Projects</a>
                 </li>
                 <li className="nav-item">
-                    <a href="/contact" className={`nav-link ${isActive('/contact/') ? 'active' : ''}`}>Contact</a>
+                    <a href="/contact" className={`nav-link ${isActive('/contact/') ? styles.headerActiveLink : styles.headerNavLink}`}>Contact</a>
                 </li>
             </ul>
         </header>

@@ -4,7 +4,7 @@ import { useState , useEffect} from "react";
 import {FileType} from './FileType'
 import ProjectApi from '../../api/ProjectApi'
 import FilterPool from './FilterPool';
-import { Tags } from './ProjectTag'
+import { AllTagList } from './ProjectTag'
 import './AllMediaDisplay.css'
 
 
@@ -20,7 +20,7 @@ export default function AllMediaDisplay() {
 
   useEffect(() => {
 
-    setServiceFilters(Tags.map((tag, index) => ({ name: tag, selected: index === 0 })));
+    setServiceFilters(AllTagList.map((tag, index) => ({ name: tag, selected: index === 0 })));
 
     loadMediaInfos()
 
