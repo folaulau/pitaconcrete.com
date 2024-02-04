@@ -1,5 +1,11 @@
 
+import ContactUsForm from '@/components/client_components/ContactUsForm'
+
 export default function Contact() {
+
+  const sendMessage = () => {
+
+  }
 
   return (
     <>
@@ -34,52 +40,8 @@ export default function Contact() {
               </div>
             </div>
 
-            <div className="row mt-4">
-              <div className="col-12">
 
-                <div className="row">
-                  <div className="col-12 col-sm-6">
-                    <label className="form-label">Your Name</label>
-                    <input type="text" className="form-control" />
-
-
-                  </div>
-                  <div className="col-12 col-sm-6">
-                    <label className="form-label">Phone</label>
-                    <input type="text" className="form-control" />
-
-
-                  </div>
-                </div>
-
-                <div className="row">
-                  <div className="col-12 col-sm-6">
-                    <label className="form-label">Email</label>
-                    <input type="text" className="form-control" />
-
-
-                  </div>
-                  <div className="col-12 col-sm-6">
-                    <label className="form-label">How did you hear about us?</label>
-                    <input type="text" className="form-control" />
-
-
-                  </div>
-                </div>
-
-                <div className="row">
-                  <div className="col-12">
-                    <label className="form-label">Message</label>
-
-                    <textarea 
-                    rows={7}
-                    className="form-control"></textarea>
-
-                  </div>
-                </div>
-
-              </div>
-            </div>
+            <ContactUsForm />
 
           </div>
         </div>
