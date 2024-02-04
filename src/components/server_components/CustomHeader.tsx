@@ -28,7 +28,7 @@ export default function CustomHeader() {
                     <a href="/" className={`nav-link ${isActive('/') ? 'active' : ''}`} aria-current="page">Home</a>
                 </li>
                 <li className="nav-item">
-                    <a href="/about" className={`nav-link ${isActive('/about/') ? 'active' : ''}`}>About</a>
+                    <a href="/about" className={`nav-link ${isActive('/about/') ? 'active' : ''}`}>About Us</a>
                 </li>
                 <li className="nav-item">
                     <a href="/services" className={`nav-link ${isActive('/services/') ? 'active' : ''}`}>Services</a>
