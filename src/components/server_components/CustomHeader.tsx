@@ -34,8 +34,11 @@ export default function CustomHeader() {
                 <li className="nav-item">
                     <a href="/services" className={`nav-link ${isActive('/services/') ? styles.headerActiveLink : styles.headerNavLink}`}>Services</a>
                 </li>
-                <li className="nav-item">
+                {/* <li className="nav-item">
                     <a href="/projects" className={`nav-link ${isActive('/projects/') ? styles.headerActiveLink : styles.headerNavLink}`}>Projects</a>
+                </li> */}
+                <li className="nav-item">
+                    <a href="/galleries" className={`nav-link ${isActive('/galleries/') ? styles.headerActiveLink : styles.headerNavLink}`}>Gallery</a>
                 </li>
                 <li className="nav-item">
                     <a href="/contact" className={`nav-link ${isActive('/contact/') ? styles.headerActiveLink : styles.headerNavLink}`}>Contact</a>

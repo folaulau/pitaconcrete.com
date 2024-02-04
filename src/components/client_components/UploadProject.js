@@ -5,7 +5,7 @@ import axios from 'axios';
 import {FileType} from './FileType'
 import FileApi from '../../api/FileApi'
 import ProjectApi from '../../api/ProjectApi'
-import { Tags } from './ProjectTag'
+import {  AllTagList } from '@/components/client_components/ProjectTag'
 import TagPool from './TagPool'
 
 export default function UploadProject() {
@@ -35,7 +35,9 @@ export default function UploadProject() {
 
   useEffect(() => {
 
-    setServiceFilters(Tags.map((tag, index) => ({ name: tag, selected: index === 0 })));
+    // setServiceFilters(Tags.map((tag, index) => ({ name: tag, selected: index === 0 })));
+
+    setServiceFilters([{ name: 'All', selected: true }, ...AllTagList.map(tag => ({ name: tag, selected: false }))]);
 
     const urlParams = new URLSearchParams(window.location.search); 
 

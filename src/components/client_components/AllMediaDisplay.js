@@ -12,6 +12,8 @@ export default function AllMediaDisplay() {
 
   const [mediaInfos, setMediaInfos] = useState([{aws_key: "", file_name:'', projectId:0, services:[{name:'',selected:false}]}]);
 
+  const [originalMediaInfos, setOriginalMediaInfos] = useState();
+
   const [serviceFilters, setServiceFilters] = useState([{name:'',selected: false}]);
 
   const [errorMsg, setErrorMsg] = useState("");
@@ -20,7 +22,11 @@ export default function AllMediaDisplay() {
 
   useEffect(() => {
 
-    setServiceFilters(AllTagList.map((tag, index) => ({ name: tag, selected: index === 0 })));
+
+    console.log("AllTagList, ", AllTagList)
+    // setServiceFilters(AllTagList.map((tag, index) => ({ name: tag, selected: index === 0 })));
+
+    setServiceFilters([{ name: 'All', selected: true }, ...AllTagList.map(tag => ({ name: tag, selected: false }))]);
 
     loadMediaInfos()
 
@@ -33,6 +39,7 @@ export default function AllMediaDisplay() {
     ProjectApi.getAllMedia().then((response) => {
       console.log("get all media response: ", response.data);
       setMediaInfos(response.data)
+      setOriginalMediaInfos(response.data)
     }).catch((error) => {
       console.error("Error: ", error);
       setErrorMsg(error.message)
@@ -44,7 +51,7 @@ export default function AllMediaDisplay() {
   const clickFilter = (clickedFilter) => {
     console.log("clickFilter")
     
-    let all = Tags[0]
+    let all = serviceFilters[0]['name']
     let newFilters = []
     if (clickedFilter.name === all) {
       newFilters = serviceFilters.map(filter => ({
@@ -75,6 +82,25 @@ export default function AllMediaDisplay() {
     setServiceFilters(newFilters)
 
 
+    const selectedFilters = newFilters.filter(f => f.selected).map(f => f.name);
+  
+    let filteredMediaInfos = []
+
+    if (selectedFilters.includes(all)) {
+      filteredMediaInfos = JSON.parse(JSON.stringify(originalMediaInfos))
+    }else{
+      filteredMediaInfos = mediaInfos.filter(mediaInfo =>
+        mediaInfo.services &&
+        mediaInfo.services.length>0 &&
+        
+        mediaInfo.services.some(service => 
+          service.name === all ||
+          selectedFilters.includes(service.name) && service.selected
+        )
+      );
+    }
+    
+    setMediaInfos(filteredMediaInfos);
 
   }
 
@@ -97,6 +123,17 @@ export default function AllMediaDisplay() {
             </div>
 
             <div className='row'>
+              <div className="col-12 col-md-12">
+                {
+                  errorMsg && 
+                  <div className="alert alert-danger">
+                    {errorMsg}
+                  </div>
+                }
+              </div>
+            </div>
+
+            <div className='row'>
               <div className='col-12 col-sm-12'>
                 <div className='row mb-2'>
                   <div className='col-12 col-sm-12'>
@@ -104,7 +141,7 @@ export default function AllMediaDisplay() {
                       serviceFilters.map((filter, index) => (
                         <button 
                             key={index}
-                            className={`btn btn-outline-primary me-1 btn-sm ${filter.selected ? 'active' : ''}`}
+                            className={`btn btn-outline-primary me-1 btn-sm ${filter.selected ? 'active' : ''} mb-1`}
                             type="button"
                             onClick={() => clickFilter(filter)}
                         >
