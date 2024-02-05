@@ -28,8 +28,8 @@ export default function CustomHeader() {
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" onClick={() => setExpanded(expanded ? false : true)} />
                 <Navbar.Collapse id="responsive-navbar-nav">
                     <Nav className="ms-auto">  {/* Updated this line */}
-                        <Nav.Link href="/" onClick={() => setExpanded(false)} className={isActive('/') ? styles.headerActiveLink : styles.headerNavLink}>Home</Nav.Link>
-                        <Nav.Link href="/about" onClick={() => setExpanded(false)} className={isActive('/about/') ? styles.headerActiveLink : styles.headerNavLink}>About Us</Nav.Link>
+                        <Nav.Link href="/" className={isActive('/') ? styles.headerActiveLink : styles.headerNavLink}>Home</Nav.Link>
+                        <Nav.Link href="/about" className={isActive('/about/') ? styles.headerActiveLink : styles.headerNavLink}>About Us</Nav.Link>
                         <Nav.Link href="/services" onClick={() => setExpanded(false)} className={isActive('/services/') ? styles.headerActiveLink : styles.headerNavLink}>Services</Nav.Link>
                         <Nav.Link href="/galleries" onClick={() => setExpanded(false)} className={isActive('/galleries/') ? styles.headerActiveLink : styles.headerNavLink}>Gallery</Nav.Link>
                         <Nav.Link href="/contact" onClick={() => setExpanded(false)} className={isActive('/contact/') ? styles.headerActiveLink : styles.headerNavLink}>Contact</Nav.Link>
