@@ -2,6 +2,7 @@
  
 import { usePathname } from 'next/navigation'
 import { useState , useEffect} from "react"
+import { Container, Navbar, Nav, NavDropdown } from 'react-bootstrap';
 import styles from './CustomHeader.module.css'
 
 export default function CustomHeader() {
@@ -10,40 +11,31 @@ export default function CustomHeader() {
 
     const isActive = (pathname: string) => routePathname === pathname;
 
+    const [expanded, setExpanded] = useState(false);
+
     useEffect(() => {
 
         console.log("routePathname, ", routePathname)
         console.log("isActive, ", isActive)
     
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }, [routePathname]);
 
     return (
-        <header className="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
-            <a href="/" className="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
-            <span className="fs-4">PitaConcrete</span>
-            </a>
-
-            <ul className="nav nav-pills">
-                <li className="nav-item">
-                    <a href="/" className={`nav-link ${isActive('/') ? styles.headerActiveLink : styles.headerNavLink}`} aria-current="page">Home</a>
-                </li>
-                <li className="nav-item">
-                    <a href="/about" className={`nav-link ${isActive('/about/') ? styles.headerActiveLink : styles.headerNavLink}`}>About Us</a>
-                </li>
-                <li className="nav-item">
-                    <a href="/services" className={`nav-link ${isActive('/services/') ? styles.headerActiveLink : styles.headerNavLink}`}>Services</a>
-                </li>
-                {/* <li className="nav-item">
-                    <a href="/projects" className={`nav-link ${isActive('/projects/') ? styles.headerActiveLink : styles.headerNavLink}`}>Projects</a>
-                </li> */}
-                <li className="nav-item">
-                    <a href="/galleries" className={`nav-link ${isActive('/galleries/') ? styles.headerActiveLink : styles.headerNavLink}`}>Gallery</a>
-                </li>
-                <li className="nav-item">
-                    <a href="/contact" className={`nav-link ${isActive('/contact/') ? styles.headerActiveLink : styles.headerNavLink}`}>Contact</a>
-                </li>
-            </ul>
-        </header>
+        <Navbar expanded={expanded} expand="lg" bg="light" variant="light">
+            <Container>
+                <Navbar.Brand href="/">PitaConcrete</Navbar.Brand>
+                <Navbar.Toggle aria-controls="responsive-navbar-nav" onClick={() => setExpanded(expanded ? false : true)} />
+                <Navbar.Collapse id="responsive-navbar-nav">
+                    <Nav className="ms-auto">  {/* Updated this line */}
+                        <Nav.Link href="/" onClick={() => setExpanded(false)} className={isActive('/') ? styles.headerActiveLink : styles.headerNavLink}>Home</Nav.Link>
+                        <Nav.Link href="/about" onClick={() => setExpanded(false)} className={isActive('/about/') ? styles.headerActiveLink : styles.headerNavLink}>About Us</Nav.Link>
+                        <Nav.Link href="/services" onClick={() => setExpanded(false)} className={isActive('/services/') ? styles.headerActiveLink : styles.headerNavLink}>Services</Nav.Link>
+                        <Nav.Link href="/galleries" onClick={() => setExpanded(false)} className={isActive('/galleries/') ? styles.headerActiveLink : styles.headerNavLink}>Gallery</Nav.Link>
+                        <Nav.Link href="/contact" onClick={() => setExpanded(false)} className={isActive('/contact/') ? styles.headerActiveLink : styles.headerNavLink}>Contact</Nav.Link>
+                    </Nav>
+                </Navbar.Collapse>
+            </Container>
+        </Navbar>
     );
 }
