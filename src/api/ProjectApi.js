@@ -36,7 +36,17 @@ const ProjectApi = {
         };
 
         return instance.get('pitaconcrete/media/get-all', options)
-    }
+    },
+    getAllProjects: () => {
+
+        const options = {
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        };
+
+        return instance.get('pitaconcrete/projects/get-all', options)
+    },
 
 }
 

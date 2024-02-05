@@ -19,7 +19,7 @@ export default function UploadProject() {
     address:"",
     createdAt: "",
     description: "",
-    fileInfos: [{aws_key:'', content_type:'', file_name:'', projectId:0, services:[{name:'',selected:false}]}]
+    fileInfos: [{awsKey:'', contentType:'', fileName:'', projectId:0, services:[{name:'',selected:false}]}]
   });
 
   const [errorMsg, setErrorMsg] = useState("");
@@ -79,10 +79,10 @@ export default function UploadProject() {
     }));
   }
 
-  const removeMediaFile = (aws_key) => {
+  const removeMediaFile = (awsKey) => {
     setProject(project => ({
       ...project,
-      fileInfos: project.fileInfos.filter(file => file.aws_key !== aws_key)
+      fileInfos: project.fileInfos.filter(file => file.awsKey !== awsKey)
     }));
   }
 
@@ -349,8 +349,8 @@ export default function UploadProject() {
                     {
                       project.fileInfos.length > 0 &&
                       project.fileInfos.map((fileInfo)=>(
-                          (fileInfo.aws_key && fileInfo.aws_key !== '') &&
-                          <div key={fileInfo.aws_key} className='col-12 col-sm-4 text-center'>
+                          (fileInfo.awsKey && fileInfo.awsKey !== '') &&
+                          <div key={fileInfo.awsKey} className='col-12 col-sm-4 text-center'>
 
                             
                             <div className='row'>
@@ -392,25 +392,25 @@ export default function UploadProject() {
                             <div className='row'>
                               <div className='col-12 border'>
                                 {
-                                  fileInfo.file_ui_type === FileType.IMAGE &&
+                                  fileInfo.fileUIType === FileType.IMAGE &&
                                   <img 
-                                    src={mediaDomin + `/`+ fileInfo.aws_key} 
+                                    src={mediaDomin + `/`+ fileInfo.awsKey} 
                                     className="img-fluid"
                                     alt="..."/>
                                 }
                                 {
-                                  fileInfo.file_ui_type === FileType.VIDEO &&
+                                  fileInfo.fileUIType === FileType.VIDEO &&
                                   <video className="img-fluid" controls>
-                                    <source src={mediaDomin + `/`+ fileInfo.aws_key} type={fileInfo.content_type}></source>
+                                    <source src={mediaDomin + `/`+ fileInfo.awsKey} type={fileInfo.contentType}></source>
                                     Your browser does not support the video tag.
                                   </video>
                                 }
                                 {
-                                  fileInfo.file_ui_type === FileType.PDF &&
+                                  fileInfo.fileUIType === FileType.PDF &&
                                   <iframe 
-                                  src={mediaDomin + `/`+ fileInfo.aws_key} 
+                                  src={mediaDomin + `/`+ fileInfo.awsKey} 
                                   className="img-fluid"
-                                  title={fileInfo.file_name}>
+                                  title={fileInfo.fileName}>
                                   </iframe>
                                 }
                               </div>
@@ -418,11 +418,11 @@ export default function UploadProject() {
 
                             <div className='row mb-1'>
                               <div className='col-6'>
-                                {fileInfo.file_name}
+                                {fileInfo.fileName}
                               </div>
                               <div className='col-6'>
                                 <button 
-                                  onClick={(e)=>removeMediaFile(fileInfo.aws_key)}
+                                  onClick={(e)=>removeMediaFile(fileInfo.awsKey)}
                                   type="button" 
                                   className="btn btn-outline-danger btn-sm"
                                   style={{ padding: '1px' }}

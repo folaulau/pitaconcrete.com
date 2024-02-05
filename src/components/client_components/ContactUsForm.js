@@ -1,6 +1,7 @@
 'use client'
 
 import { useState , useEffect} from "react";
+import ContactApi from '@/api/ContactApi'
 
 import './ContactUsForm.module.css'
 
@@ -10,7 +11,7 @@ export default function ContactUsForm() {
   const [errorMsg, setErrorMsg] = useState("");
   const [alertMsg, setAlertMsg] = useState("");
 
-  const formFields = {
+  let formFields = {
     name: "",
     phone: "",
     email: "",
@@ -36,9 +37,19 @@ export default function ContactUsForm() {
   const sendMessage = () => {
     console.log('sendMessage...', contactUsMessage)
 
-    setAlertMsg("Message sent! We will contact you shortly.")
+    ContactApi.create(contactUsMessage).then((response) => {
+      console.log("project add/update entry response: ", response.data);
+      setContactUsMessage(formFields)
+      setAlertMsg("Message sent! We will contact you shortly.")
+      setErrorMsg("")
 
-    setContactUsMessage(formFields)
+    }).catch((error) => {
+      console.error("Error: ", error);
+      setErrorMsg(error.message)
+      console.error("Error: ", errorMsg);
+    });
+
+
   }
 
 
@@ -81,12 +92,13 @@ export default function ContactUsForm() {
 
             </div>
             <div className="col-12 col-sm-6">
-              <label 
+              <label className="form-label">Phone *</label>
+              <input
                 name="phone"
                 value={contactUsMessage.phone}
                 onChange={handleInputChange}
-                className="form-label">Phone *</label>
-              <input type="text" className="form-control" />
+                type="text" 
+                className="form-control" />
 
 
             </div>
@@ -94,12 +106,13 @@ export default function ContactUsForm() {
 
           <div className="row">
             <div className="col-12 col-sm-6">
-              <label 
-                name="email"
-                value={contactUsMessage.email}
-                onChange={handleInputChange}
-                className="form-label">Email *</label>
-              <input type="text" className="form-control" />
+              <label className="form-label">Email *</label>
+              <input 
+                 name="email"
+                 value={contactUsMessage.email}
+                 onChange={handleInputChange}
+                 type="text" 
+              className="form-control" />
 
 
             </div>
@@ -109,7 +122,8 @@ export default function ContactUsForm() {
                 name="hearAboutUs"
                 value={contactUsMessage.hearAboutUs}
                 onChange={handleInputChange}
-              type="text" className="form-control" />
+                type="text" 
+                className="form-control" />
 
 
             </div>
@@ -123,8 +137,8 @@ export default function ContactUsForm() {
                 name="message"
                 value={contactUsMessage.message}
                 onChange={handleInputChange}
-              rows={7}
-              className="form-control"></textarea>
+                rows={7}
+                className="form-control"></textarea>
 
             </div>
           </div>
