@@ -34,6 +34,11 @@ export default function ProjectsFE() {
 
   }
 
+  const startProject = () => {
+    
+  }
+
+
   return (
     <>
       <div className="container">
@@ -50,7 +55,13 @@ export default function ProjectsFE() {
                 }
               </div>
             </div>
-
+            <div className='row'>
+              <div className='col-12 col-sm-4'>
+                <a 
+                href="/admin/project"
+                className="btn btn-outline-primary">Start</a>
+              </div>
+            </div>
             <div className='row'>
               <div className='col-12 col-sm-12'>
                 <div className='row'>
@@ -59,9 +70,8 @@ export default function ProjectsFE() {
                       <tr>
                         <th scope="col">ID</th>
                         <th scope="col">Name</th>
-                        <th scope="col">Email</th>
-                        <th scope="col">Phone</th>
-                        <th scope="col">Message</th>
+                        <th scope="col">Address</th>
+                        <th scope="col">Date</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -71,11 +81,10 @@ export default function ProjectsFE() {
                         && projects.map((project, index)=>(
                         
                           <tr key={project.id}>
-                            <td>  {project.id}</td>
+                            <td>  <a href={"/admin/project?id="+project.id}>{project.id}</a></td>
                             <td>  {project.name}</td>
-                            <td>  {project.email}</td>
-                            <td>  {project.phone}</td>
-                            <td>  {project.message}</td>
+                            <td>  {project.address}</td>
+                            <td>  {project.createdAt}</td>
                           </tr>
                           
                         ))
