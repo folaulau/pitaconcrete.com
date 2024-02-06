@@ -69,5 +69,5 @@ jobs:
         run: aws s3 cp s3://pitaconcrete.com/index.html s3://pitaconcrete.com/index.html --content-type 'text/html' --cache-control 'no-store, max-age=0' --metadata-directive REPLACE
 
       - name: Clear cloudfront cache
-        run: aws cloudfront create-invalidation --distribution-id=E2R6MFJLPJ8GQJ --paths '/index.html' '/about' '/galleries' '/services' '/contact' '/version.txt' 
+        run: aws cloudfront create-invalidation --distribution-id=E2R6MFJLPJ8GQJ --paths '/index.html' '/about' /about/' '/galleries' '/galleries/' '/services' '/services/' '/contact' '/contact/' '/version.txt' 
 
