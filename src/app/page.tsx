@@ -13,12 +13,6 @@ export default function Home() {
 
   return (
     <>
-      <div className="p-5 text-center bg-body-tertiary rounded-3">
-        <h1 className="text-body-emphasis">Welcome to Pita Concrete.</h1>
-        <p className="col-lg-8 mx-auto fs-5 text-muted">
-          We are here for your construction needs!
-        </p>
-      </div>
       <HomeCarousel />
       <div className="p-5 text-center bg-body-tertiary rounded-3">
         <h1 className="text-body-emphasis">Welcome to Pita Concrete.</h1>

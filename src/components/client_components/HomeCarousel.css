@@ -1,0 +1,22 @@
+.home-carousel-img {
+    width: 100%; /* This ensures the image fills the container */
+    height: 750px; /* Default height for larger devices (desktops) */
+}
+
+/* Media query for iPads (medium devices) */
+@media (max-width: 768px) {
+    .home-carousel-img {
+        height: 550px;
+    }
+}
+
+/* Media query for phones (small devices) */
+@media (max-width: 576px) {
+    .home-carousel-img {
+        height: 350px;
+    }
+}
+
+.home-carousel-desc{
+    /* color: black; */
+}
