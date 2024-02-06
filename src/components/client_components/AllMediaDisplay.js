@@ -3,7 +3,6 @@
 import { useState , useEffect} from "react";
 import {FileType} from './FileType'
 import ProjectApi from '../../api/ProjectApi'
-import FilterPool from './FilterPool';
 import { AllTagList } from './ProjectTag'
 import './AllMediaDisplay.css'
 
