@@ -9,7 +9,7 @@ export default function Galleries() {
       <div className="row">
         <div className="col-12 text-center">
             <div className="d-inline-block text-center">
-                <h4>Our Galleries</h4>
+                <h4>Our Galleries xx</h4>
                 <hr/>
             </div>
         </div>
