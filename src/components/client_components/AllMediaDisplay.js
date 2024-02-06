@@ -150,9 +150,12 @@ export default function AllMediaDisplay() {
                     }
                   </div>
                 </div>
-
+                <div>
+                mediaInfos: {JSON.stringify(mediaInfos)}
+                </div>
                 <div className='row'>
                   {
+                    mediaInfos && 
                     mediaInfos.length > 0 &&
                     mediaInfos.map((fileInfo, index)=>(
                           (fileInfo.awsKey && fileInfo.awsKey !== '') &&
