@@ -12,7 +12,7 @@ export default function Home() {
   
 
   return (
-    <div className='row'>
+    <div className='row mt-4'>
       <div className='col-12'>
           <HomeCarousel />
 
