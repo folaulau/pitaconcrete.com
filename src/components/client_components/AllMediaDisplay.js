@@ -151,7 +151,6 @@ export default function AllMediaDisplay() {
                   </div>
                 </div>
                 <div>
-                mediaInfos
                 </div>
                 <div className='row'>
                   {
