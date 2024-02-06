@@ -36,7 +36,7 @@ export default function Home() {
                 </div>
               </div>
 
-              <div className="row fs-5">
+              <div className="row fs-6">
                 <div className="col-12">
 
                   <div className='row mb-2'>
