@@ -18,7 +18,7 @@ export default function Home() {
 
           <div className="p-3 text-center rounded-3">
             <h1 className="text-body-emphasis">Welcome to Pita Concrete.</h1>
-            <p className="col-sm-8 mx-auto fs-4 text-muted">
+            <p className="col-sm-8 mx-auto fs-6 text-muted">
             Set in Concrete, Steadfast in Service
             </p>
           </div>
