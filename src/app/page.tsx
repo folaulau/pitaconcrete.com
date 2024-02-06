@@ -41,24 +41,25 @@ export default function Home() {
 
                   <div className='row mb-2'>
                     <div className='col-12'>
-                      At Pita Concrete, we believe that excellence in concrete craftsmanship speaks volumes. Our portfolio, showcased on this website and evident in our numerous in-person projects, 
-                      stands as a testament to our unwavering commitment to quality and meticulous attention to detail. Our team is dedicated to not just meeting, 
-                      but exceeding client expectations from the very first interaction to the completion of the project.
+                      At Pita Concrete, customer satisfaction is our top priority. 
+                      Our dedicated team works closely with you to understand and fulfill your unique construction needs. 
+                      We ensure every project, from initial consultation to final execution, exceeds your expectations, delivering personalized service with unparalleled professionalism.
                     </div>
                   </div>
 
                   <div className='row mb-2'>
                     <div className='col-12'>
-                    Understanding that knowledge is key, we dedicate substantial time to educating our clients about our processes even before a project begins. 
-                    This approach ensures that our clients are well-informed and comfortable throughout the entire journey with us.
+                      Excellence in craftsmanship is our hallmark. 
+                      Our skilled professionals utilize advanced techniques and materials to ensure precision in every project. 
+                      Whether it is architectural hardscaping or decorative concrete, we are committed to delivering top-tier quality, meeting strict timelines and budget requirements seamlessly.
                     </div>
                   </div>
 
                   <div className='row mb-2'>
                     <div className='col-12'>
-                    The heart of our operations lies in our skilled crews.  
-                    Their expertise and dedication are the cornerstones of our ability to consistently deliver superior results. 
-                    By maintaining all aspects of our work, we ensure an unparalleled level of quality control and a seamless process for our clients.
+                    Our reputation in the construction industry speaks volumes. 
+                    Pita Concrete is renowned for reliability and quality, earning trust and respect from clients who often return for future projects. 
+                    Our portfolio demonstrates our diverse capabilities, and our client testimonials reflect our unwavering dedication to excellence and service.
                     </div>
                   </div>
 
