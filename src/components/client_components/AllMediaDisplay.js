@@ -10,7 +10,7 @@ import './AllMediaDisplay.css'
 
 export default function AllMediaDisplay() {
 
-  const [mediaInfos, setMediaInfos] = useState([{aws_key: "", file_name:'', projectId:0, services:[{name:'',selected:false}]}]);
+  const [mediaInfos, setMediaInfos] = useState([{awsKey: "", fileName:'', projectId:0, services:[{name:'',selected:false}]}]);
 
   const [originalMediaInfos, setOriginalMediaInfos] = useState();
 
@@ -156,29 +156,29 @@ export default function AllMediaDisplay() {
                   {
                     mediaInfos.length > 0 &&
                     mediaInfos.map((fileInfo, index)=>(
-                          (fileInfo.aws_key && fileInfo.aws_key !== '') &&
+                          (fileInfo.awsKey && fileInfo.awsKey !== '') &&
                           <div key={index} className='col-12 col-sm-4'>
 
                           <div className='row'>
                             <div className='col-12 px-2'>
                               <div className="aspect-ratio-box">
                               {
-                                fileInfo.file_ui_type === FileType.IMAGE &&
-                                <img src={mediaDomin + `/`+ fileInfo.aws_key} className="img-thumbnail image-centered" alt="..."/>
+                                fileInfo.fileUIType === FileType.IMAGE &&
+                                <img src={mediaDomin + `/`+ fileInfo.awsKey} className="img-thumbnail image-centered" alt="..."/>
                               }
                               {
-                                fileInfo.file_ui_type === FileType.VIDEO &&
+                                fileInfo.fileUIType === FileType.VIDEO &&
                                 <video className="img-thumbnail" controls>
-                                  <source src={mediaDomin + `/`+ fileInfo.aws_key} type={fileInfo.content_type}></source>
+                                  <source src={mediaDomin + `/`+ fileInfo.awsKey} type={fileInfo.content_type}></source>
                                   Your browser does not support the video tag.
                                 </video>
                               }
                               {
-                                fileInfo.file_ui_type === FileType.PDF &&
+                                fileInfo.fileUIType === FileType.PDF &&
                                 <iframe 
-                                src={mediaDomin + `/`+ fileInfo.aws_key} 
+                                src={mediaDomin + `/`+ fileInfo.awsKey} 
                                 className="img-thumbnail"
-                                title={fileInfo.file_name}>
+                                title={fileInfo.fileName}>
                                 </iframe>
                               }
                               </div>
