@@ -34,8 +34,45 @@ export default function ContactUsForm() {
     }))
   }
 
+  const validate = () => {
+    let contactUsForm = JSON.parse(JSON.stringify(contactUsMessage))
+
+    let errrorMessages = []
+
+    if(contactUsForm.name === null || contactUsForm.name.trim().length<=0){
+      errrorMessages.push("Name is required")
+    }
+    if(contactUsForm.phone === null || contactUsForm.phone.trim().length<=0){
+      errrorMessages.push("Phone is required")
+    }
+    if(contactUsForm.email === null || contactUsForm.email.trim().length<=0){
+      errrorMessages.push("Email is required")
+    }
+    if(contactUsForm.message === null || contactUsForm.message.trim().length<=0){
+      errrorMessages.push("Message is required")
+    }
+
+    let errrorMessage = ""
+
+    if(errrorMessages.length>0){
+      errrorMessages.unshift("These fields are invalid\n")
+      errrorMessage = errrorMessages.join("\n")
+    }
+
+    return errrorMessage
+
+  }
+
   const sendMessage = () => {
     console.log('sendMessage...', contactUsMessage)
+
+    let errrorMessage = validate()
+
+    setErrorMsg(errrorMessage)
+
+    if(errrorMessage.length>0){
+      return;
+    }
 
     ContactApi.create(contactUsMessage).then((response) => {
       console.log("project add/update entry response: ", response.data);
@@ -63,7 +100,13 @@ export default function ContactUsForm() {
               {
                 errorMsg && 
                 <div className="alert alert-danger">
-                  {errorMsg}
+                  {/* {errorMsg} */}
+                  {errorMsg.split("\n").map((message, index) => (
+                    <div key={index}>
+                      {message}
+                      <br/>
+                    </div>
+                  ))}
                 </div>
               }
             </div>
