@@ -35,10 +35,22 @@ export default function AllMediaDisplay() {
   const loadMediaInfos = () => {
     console.log("loadMediaInfos")
 
-    ProjectApi.getAllMedia().then((response) => {
+    ProjectApi.getMediaFirst12().then((response) => {
       console.log("get all media response: ", response.data);
       setMediaInfos(response.data)
       setOriginalMediaInfos(response.data)
+
+      ProjectApi.getAllMedia().then((response) => {
+        console.log("get all media response: ", response.data);
+        setMediaInfos(response.data)
+        setOriginalMediaInfos(response.data)
+      }).catch((error) => {
+        console.error("Error: ", error);
+        setErrorMsg(error.message)
+        console.error("Error: ", errorMsg);
+      });
+
+
     }).catch((error) => {
       console.error("Error: ", error);
       setErrorMsg(error.message)
