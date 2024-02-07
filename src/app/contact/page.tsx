@@ -1,6 +1,6 @@
 
 import ContactUsForm from '@/components/client_components/ContactUsForm'
-
+import CacheTrigger from '@/components/client_components/CacheTrigger'
 export default function Contact() {
 
   const sendMessage = () => {
@@ -46,6 +46,7 @@ export default function Contact() {
           </div>
         </div>
       </section>
+      <CacheTrigger />
     </>
   )
 }

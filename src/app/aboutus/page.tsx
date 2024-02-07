@@ -2,7 +2,7 @@ import AboutComp from '@/components/server_components/AboutUs';
 
 import OperatingAreas from '@/components/client_components/OperatingAreas';
 
-export default function About() {
+export default function AboutUs() {
 
   return (
     <>

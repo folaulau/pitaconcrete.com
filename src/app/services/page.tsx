@@ -1,6 +1,8 @@
 import AboutComp from '@/components/server_components/AboutUs';
 import { AllTagList, CommercialTagList, ResidentialTagList} from '@/components/client_components/ProjectTag'
 import './page.css'
+import CacheTrigger from '@/components/client_components/CacheTrigger';
+
 export default function Services() {
 
   return (
@@ -107,7 +109,7 @@ export default function Services() {
             </div>
         </div>
       </section>
-      
+      <CacheTrigger />
     </>
   )
 }
