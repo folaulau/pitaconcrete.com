@@ -124,7 +124,7 @@ export default function About() {
                         </div>
                     </div>
 
-                    <div className="row mt-3">
+                    <div className="row mt-1">
                         <div className="col-12">
 
                             <div className="row">
@@ -155,7 +155,7 @@ export default function About() {
                         </div>
                     </div>
 
-                    <div className="row mt-3">
+                    <div className="row mt-1">
                         <div className="col-12">
 
                             <div className="row">
