@@ -1,6 +1,7 @@
 import AboutComp from '@/components/server_components/AboutUs';
 
 import OperatingAreas from '@/components/client_components/OperatingAreas';
+import CacheTrigger from '@/components/client_components/CacheTrigger';
 
 export default function AboutUs() {
 
@@ -199,6 +200,7 @@ export default function AboutUs() {
                 </div>
             </div>
         </section>
+        <CacheTrigger />
     </>
   )
 }
