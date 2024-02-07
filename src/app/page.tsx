@@ -3,13 +3,11 @@ import { Button } from 'react-bootstrap';
 import Carousel from 'react-bootstrap/Carousel';
 import HeroCarousel from '../components/client_components/HeroCarousel'
 import HomeCarousel from '@/components/client_components/HomeCarousel';
-import AboutComp from '@/components/server_components/AboutUs';
+import CacheTrigger from '@/components/client_components/CacheTrigger';
 
 export default function Home() {
 
   console.log("NEXT_PUBLIC_ENV: ", process.env.NEXT_PUBLIC_ENV)
-
-  
 
   return (
     <div className='row mt-4'>
@@ -75,7 +73,8 @@ export default function Home() {
             </div>
           </div>
 
-        </div>
+      </div>
+      <CacheTrigger />
     </div>
   )
 }
