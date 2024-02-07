@@ -1,6 +1,6 @@
 .home-carousel-img {
     width: 100%; /* This ensures the image fills the container */
-    height: 750px; /* Default height for larger devices (desktops) */
+    height: 785px; /* Default height for larger devices (desktops) */
 }
 
 /* Media query for iPads (medium devices) */

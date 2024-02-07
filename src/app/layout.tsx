@@ -4,6 +4,7 @@ import './globals.css'
 import './main.css'
 import "bootstrap/dist/css/bootstrap.min.css";
 import CustomHeader from '@/components/server_components/CustomHeader';
+import CustomFooter from '@/components/server_components/CustomFooter';
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -36,6 +37,8 @@ export default function RootLayout({
         <CustomHeader />
         
         {children}
+
+        <CustomFooter />
         
       </body>
     </html>
