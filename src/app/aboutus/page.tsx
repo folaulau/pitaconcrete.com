@@ -14,7 +14,7 @@ export default function AboutUs() {
                     <div className="row">
                         <div className="col-12">
 
-                            <div className="row">
+                            <div className="row mt-3 mt-sm-0">
                                 <div className="col-12 text-center">
                                     <div>Who We Are</div>
                                     <div className="d-inline-block text-center">
@@ -23,13 +23,13 @@ export default function AboutUs() {
                                     </div>
                                 </div>
                             </div>
-                            <div className="row">
+                            <div className="row mb-4 mb-sm-0">
                                 <div className="col-12">
                                         
                                     <div className="row">
                                         <div className="col-12 col-sm-3">
                                     
-                                            <div className="row">
+                                            <div className="row mb-3 mb-sm-0">
                                                 <div className="col-12">
 
                                                     <div className="row">
@@ -125,7 +125,7 @@ export default function AboutUs() {
                         </div>
                     </div>
 
-                    <div className="row mt-1">
+                    <div className="row mb-2 mb-sm-0">
                         <div className="col-12">
 
                             <div className="row">
@@ -156,7 +156,7 @@ export default function AboutUs() {
                         </div>
                     </div>
 
-                    <div className="row mt-1">
+                    <div className="row mb-2 mb-sm-0">
                         <div className="col-12">
 
                             <div className="row">
@@ -188,7 +188,7 @@ export default function AboutUs() {
                         </div>
                     </div>
 
-                    <div className="row mt-3">
+                    <div className="row mb-2 mb-sm-0">
                         <div className="col-12">
 
                             <OperatingAreas />
