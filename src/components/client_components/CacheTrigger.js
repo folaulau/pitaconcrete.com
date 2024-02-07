@@ -8,7 +8,7 @@ export default function CacheTrigger() {
   useEffect(() => {
 
     ProjectApi.getMediaFirst12().then((response) => {
-      console.log("get all media response: ", response.data);
+      console.log("get first 12 media response trigger cache: ", response.data);
     }).catch((error) => {
       console.error("Error: ", error);
     });
