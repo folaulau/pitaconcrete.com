@@ -1,8 +1,8 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
+import "bootstrap/dist/css/bootstrap.min.css";
 import './globals.css'
 import './main.css'
-import "bootstrap/dist/css/bootstrap.min.css";
 import CustomHeader from '@/components/server_components/CustomHeader';
 import CustomFooter from '@/components/server_components/CustomFooter';
 
