@@ -42,12 +42,19 @@ export default function ContactUsForm() {
     if(contactUsForm.name === null || contactUsForm.name.trim().length<=0){
       errrorMessages.push("Name is required")
     }
+
     if(contactUsForm.phone === null || contactUsForm.phone.trim().length<=0){
       errrorMessages.push("Phone is required")
+    }else if(!isValidUSPhoneNumber(contactUsForm.phone)){
+      errrorMessages.push("Phone is invalid")
     }
+
     if(contactUsForm.email === null || contactUsForm.email.trim().length<=0){
       errrorMessages.push("Email is required")
+    }else if(!isValidEmail(contactUsForm.email)){
+      errrorMessages.push("Email is invalid")
     }
+
     if(contactUsForm.message === null || contactUsForm.message.trim().length<=0){
       errrorMessages.push("Message is required")
     }
@@ -61,6 +68,19 @@ export default function ContactUsForm() {
 
     return errrorMessage
 
+  }
+
+  const isValidUSPhoneNumber = (phoneNumber) => {
+    // This regex matches the following phone number formats:
+    // 123-456-7890, (123) 456-7890, 123 456 7890, 123.456.7890, 1234567890, +1 123-456-7890
+    const regex = /^(?:\+1\s?)?\(?(?:\d{3})\)?[\s.-]?(?:\d{3})[\s.-]?(?:\d{4})$/;
+    return regex.test(phoneNumber);
+  }
+
+  const isValidEmail = (email) => {
+    // Simple regex for basic email validation
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return regex.test(email);
   }
 
   const sendMessage = () => {
