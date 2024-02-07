@@ -25,11 +25,17 @@ export default function RootLayout({
     <html lang="en">
 
 
-      <link
+      {/* <link
           rel="preload"
           href="https://fonts.googleapis.com/css?family=Montserrat:400,500,600,700,800,900&display=swap"
           as="style"
-      />
+      /> */}
+
+      <link rel="preconnect" href="https://fonts.googleapis.com" />
+      <link rel="preconnect" href="https://fonts.gstatic.com" />
+      <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@100;200;300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet" />
+
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css" rel="stylesheet" />
       
       {/* <body className={inter.className}> */}
       <body className='container'>

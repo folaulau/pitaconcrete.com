@@ -22,9 +22,9 @@ export default function CustomHeader() {
     }, [routePathname]);
 
     return (
-        <Navbar expanded={expanded} expand="lg" bg="light" variant="light">
+        <Navbar expanded={expanded} expand="lg" bg="light" variant="light" className='navbar navbar-expand-lg navbar-light bg-white py-3'>
             <Container>
-                <Navbar.Brand href="/">PitaConcrete</Navbar.Brand>
+                <Navbar.Brand className='fw-bolder text-primary' href="/">Pita Concrete</Navbar.Brand>
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" onClick={() => setExpanded(expanded ? false : true)} />
                 <Navbar.Collapse id="responsive-navbar-nav">
                     <Nav className="ms-auto">  {/* Updated this line */}

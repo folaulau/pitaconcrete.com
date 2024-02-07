@@ -1,6 +1,6 @@
-/* CustomHeader.module.css */
+
 .headerActiveLink {
-  color: #0d6efd; /* Replace with the color you want for active links */
+  color: #1e30f3;
   font-weight: bold;
   text-decoration: underline;
 }
@@ -11,14 +11,11 @@
 
 .headerNavLink:hover {
   text-decoration: underline;
-  transform: scale(1.25); 
-  font-weight: bold;
+  transform: scale(1.15); 
 }
-  
-  /* Disable the default Bootstrap styles for active links */
+
 .nav-pills .nav-link.active {
   background-color: inherit;
   color: inherit;
   border-color: inherit;
-}
-  
+} 
