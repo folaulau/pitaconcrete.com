@@ -36,7 +36,7 @@ export default function AllMediaDisplay() {
     console.log("loadMediaInfos")
 
     ProjectApi.getMediaFirst12().then((response) => {
-      console.log("get all media response: ", response.data);
+      console.log("get first 12 media response: ", response.data);
       setMediaInfos(response.data)
       setOriginalMediaInfos(response.data)
 
