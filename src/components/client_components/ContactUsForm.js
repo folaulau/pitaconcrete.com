@@ -2,7 +2,7 @@
 
 import { useState , useEffect} from "react";
 import ContactApi from '@/api/ContactApi'
-
+import Utility from '@/components/client_components/Utility'
 import './ContactUsForm.module.css'
 
 
@@ -45,13 +45,13 @@ export default function ContactUsForm() {
 
     if(contactUsForm.phone === null || contactUsForm.phone.trim().length<=0){
       errrorMessages.push("Phone is required")
-    }else if(!isValidUSPhoneNumber(contactUsForm.phone)){
+    }else if(!Utility.isValidUSPhoneNumber(contactUsForm.phone)){
       errrorMessages.push("Phone is invalid")
     }
 
     if(contactUsForm.email === null || contactUsForm.email.trim().length<=0){
       errrorMessages.push("Email is required")
-    }else if(!isValidEmail(contactUsForm.email)){
+    }else if(!Utility.isValidEmail(contactUsForm.email)){
       errrorMessages.push("Email is invalid")
     }
 
@@ -68,43 +68,6 @@ export default function ContactUsForm() {
 
     return errrorMessage
 
-  }
-
-  /*
-    // Examples of usage:
-console.log(isValidUSPhoneNumber("123-456-7890")); // true
-console.log(isValidUSPhoneNumber("(123) 456-7890")); // true
-console.log(isValidUSPhoneNumber("123 456 7890")); // true
-console.log(isValidUSPhoneNumber("123.456.7890")); // true
-console.log(isValidUSPhoneNumber("1234567890")); // true
-console.log(isValidUSPhoneNumber("+1 123-456-7890")); // true
-console.log(isValidUSPhoneNumber("3101234567")); // true
-console.log(isValidUSPhoneNumber("123-45-6789")); // false
-   */
-
-  const isValidUSPhoneNumber = (phoneNumber) => {
-    // This regex matches the following phone number formats:
-    // 123-456-7890, (123) 456-7890, 123 456 7890, 123.456.7890, 1234567890, +1 123-456-7890
-    const regex = /^(?:\+1\s?)?\(?(?:\d{3})\)?[\s.-]?(?:\d{3})[\s.-]?(?:\d{4})$/;
-    return regex.test(phoneNumber);
-  }
-
-  /*
-// Examples of usage:
-console.log(isValidEmail("email@example.com")); // true
-console.log(isValidEmail("user.name+tag+sorting@example.com")); // true
-console.log(isValidEmail("my.email@example.web")); // true
-console.log(isValidEmail("email@example.com.")); // false
-console.log(isValidEmail("@no-local-part.com")); // false
-console.log(isValidEmail("no-at-sign")); // false
-console.log(isValidEmail("no-tld@domain")); // false
-console.log(isValidEmail("email@123.123.123.123")); // true
-console.log(isValidEmail("email@[123.123.123.123]")); // false, although technically valid in certain contexts
-  */
-  const isValidEmail = (email) => {
-    // Simple regex for basic email validation
-    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return regex.test(email);
   }
 
   const sendMessage = () => {

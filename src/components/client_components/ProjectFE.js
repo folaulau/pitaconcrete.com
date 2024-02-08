@@ -149,24 +149,61 @@ export default function ProjectFE() {
     }
   };
 
+  const validate = () => {
+    let form = JSON.parse(JSON.stringify(project))
+
+    let errrorMessages = []
+
+    if(form.name === null || form.name.trim().length<=0){
+      errrorMessages.push("Name is required")
+    }
+
+    if(form.createdAt === null || form.createdAt.trim().length<=0){
+      errrorMessages.push("Date is required")
+    }
+
+    if(form.address === null || form.address.trim().length<=0){
+      errrorMessages.push("Address is required")
+    }
+
+    let errrorMessage = ""
+
+    if(errrorMessages.length>0){
+      errrorMessages.unshift("These fields are invalid\n")
+      errrorMessage = errrorMessages.join("\n")
+    }
+
+    return errrorMessage
+
+  }
+
   const createUpdate = () => {
     console.log("createUpdate")
     console.log(JSON.stringify(project))
 
+
+    let errrorMessage = validate()
+
+    setErrorMsg(errrorMessage)
+
+    if(errrorMessage.length>0){
+      return;
+    }
+
     setShowBusy(true)
 
-    ProjectApi.createUpdate(project).then((response) => {
-      console.log("project add/update entry response: ", response.data);
-      setProject(response.data)
-      populateIdParameter(response.data.id)
+    // ProjectApi.createUpdate(project).then((response) => {
+    //   console.log("project add/update entry response: ", response.data);
+    //   setProject(response.data)
+    //   populateIdParameter(response.data.id)
 
-      setAlertMsg("Project saved!")
-    }).catch((error) => {
-      console.error("Error: ", error);
-      setErrorMsg(error.message)
-      console.error("Error: ", errorMsg);
-      setShowBusy(true)
-    });
+    //   setAlertMsg("Project saved!")
+    // }).catch((error) => {
+    //   console.error("Error: ", error);
+    //   setErrorMsg(error.message)
+    //   console.error("Error: ", errorMsg);
+    //   setShowBusy(true)
+    // });
 
   }
 
@@ -261,13 +298,29 @@ export default function ProjectFE() {
           <div className="col-12 col-sm-12">
             <form>
               <div className='row'>
-                <div className="col-12 col-md-12">
-                  {
+                <div className="col-12 col-sm-12">
+                  {/* {
                     errorMsg && 
                     <div className="alert alert-danger">
                       {errorMsg}
                     </div>
+                  } */}
+                  {/* {errorMsg} */}
+                  
+                  {
+                    errorMsg && 
+                    <div className="alert alert-danger">
+                    {
+                      errorMsg.split("\n").map((message, index) => (
+                        <div key={index}>
+                          {message}
+                          <br/>
+                        </div>
+                      ))
+                    }
+                    </div>
                   }
+
                 </div>
               </div>
               <div className='row'>
