@@ -50,8 +50,13 @@ export default function RootLayout({
       </head>
       {/* <body className={inter.className}> */}
       <body className='container'>
-        <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TPXJV7HZ"
-        height="0" width="0" style={{display:"none",visibility:"hidden"}}></iframe></noscript>
+        {/* tag manager */}
+        <noscript>
+          <iframe 
+            src="https://www.googletagmanager.com/ns.html?id=GTM-TPXJV7HZ"
+            height="0" width="0" style={{display:"none",visibility:"hidden"}}>
+          </iframe>
+        </noscript>
 
         <CustomHeader />
         
