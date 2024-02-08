@@ -81,7 +81,7 @@ export default function ProjectsFE() {
                         && projects.map((project, index)=>(
                         
                           <tr key={project.id}>
-                            <td>  <a href={"/admin/project?id="+project.id}>{project.id}</a></td>
+                            <td>  <a href={"/admin/project/?id="+project.id}>{project.id}</a></td>
                             <td>  {project.name}</td>
                             <td>  {project.address}</td>
                             <td>  {project.createdAt}</td>
