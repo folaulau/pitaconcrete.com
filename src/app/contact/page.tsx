@@ -55,7 +55,7 @@ export default function Contact() {
 
             <ContactUsForm />
 
-            <div className="row mt-xs-2">
+            <div className="row mt-2 mt-sm-0">
               <div className="col-12">
                 <OperatingAreas />
               </div>
