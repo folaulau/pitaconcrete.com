@@ -1,6 +1,8 @@
 
 import ContactUsForm from '@/components/client_components/ContactUsForm'
 import CacheTrigger from '@/components/client_components/CacheTrigger'
+import OperatingAreas from '@/components/client_components/OperatingAreas'
+
 export default function Contact() {
 
   const sendMessage = () => {
@@ -52,6 +54,12 @@ export default function Contact() {
 
 
             <ContactUsForm />
+
+            <div className="row">
+              <div className="col-12">
+                <OperatingAreas />
+              </div>
+            </div>
 
           </div>
         </div>
