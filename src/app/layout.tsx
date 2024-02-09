@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import { GoogleAnalytics } from '@next/third-parties/google'
+import { GoogleTagManager } from '@next/third-parties/google'
 import "bootstrap/dist/css/bootstrap.min.css";
 import './globals.css'
 import './main.css'
@@ -51,6 +52,7 @@ export default function RootLayout({
       </body>
 
       <GoogleAnalytics gaId="G-28E1NH1JMX" />
+      <GoogleTagManager gtmId="GTM-TPXJV7HZ" />
     </html>
   )
 }
