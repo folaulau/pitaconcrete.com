@@ -49,12 +49,12 @@ export default function AboutUs() {
                                                     </div>
                                                     <div className="row">
                                                         <div className="col-12">
-                                                            Lehi, Utah
+                                                            Saltlake, Utah
                                                         </div>
                                                     </div>
                                                     <div className="row">
                                                         <div className="col-12">
-                                                            Phone: (760) 991-7359
+                                                            Phone: <a href="tel:7609917359">(760) 991-7359</a>
                                                         </div>
                                                     </div>
                                                     <div className="row">
