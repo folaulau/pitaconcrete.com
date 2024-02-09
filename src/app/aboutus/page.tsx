@@ -59,7 +59,7 @@ export default function AboutUs() {
                                                     </div>
                                                     <div className="row">
                                                         <div className="col-12">
-                                                            Email: pitaconcrete@gmail.com
+                                                            Email: <a href="mailto:pitaconcrete@gmail.com">pitaconcrete@gmail.com</a>
                                                         </div>
                                                     </div>
 
