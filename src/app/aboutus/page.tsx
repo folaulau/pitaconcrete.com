@@ -49,7 +49,7 @@ export default function AboutUs() {
                                                     </div>
                                                     <div className="row">
                                                         <div className="col-12">
-                                                            Saltlake, Utah
+                                                            Salt Lake City, Utah
                                                         </div>
                                                     </div>
                                                     <div className="row">
