@@ -29,12 +29,22 @@ export default function Contact() {
               <div className="col-12">
                 <div className="row">
                   <div className="col-12 text-center">
-                    PHONE: (760) 991-7359 | EMAIL: pitaconcrete@gmail.com
+                    Phone: <a href="tel:7609917359">(760) 991-7359</a>
                   </div>
                 </div>
                 <div className="row">
                   <div className="col-12 text-center">
-                    HOURS OF OPERATION:   Monday – Friday   :   9 AM – 5 PM
+                    Email: <a href="mailto:pitaconcrete@gmail.com">pitaconcrete@gmail.com</a>
+                  </div>
+                </div>
+                <div className="row">
+                  <div className="col-12 text-center">
+                    Hours of Operation
+                  </div>
+                </div>
+                <div className="row">
+                  <div className="col-12 text-center">
+                    Monday – Friday   :   8 AM – 5 PM
                   </div>
                 </div>
               </div>
