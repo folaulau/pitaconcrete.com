@@ -70,7 +70,7 @@ export default function AboutUs() {
                                                     </div>
                                                     <div className="row mt-1">
                                                         <div className="col-12">
-                                                            Insured by <a href="https://www.auto-owners.com/" target="_blank">Insurance Company</a> 
+                                                            Insured by <a href="https://www.summit-risk.com/" target="_blank">Summit Risk Management & Insurance</a> 
                                                         </div>
                                                     </div>
                                                         
