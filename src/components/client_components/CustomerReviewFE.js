@@ -7,6 +7,7 @@ import FileApi from '../../api/FileApi'
 import ProjectApi from '../../api/ProjectApi'
 import {  AllTagList } from '@/components/client_components/ProjectTag'
 import TagPool from './TagPool'
+import ReviewApi from '@/api/ReviewApi'
 
 export default function CustomerReviewFE() {
 
@@ -14,7 +15,7 @@ export default function CustomerReviewFE() {
 
   let initialReviewState = {
     name: "",
-    imageUrl: "",
+    imageAwsKey: "",
     rating: 0,
     comment: "",
     phone:"",
@@ -24,6 +25,7 @@ export default function CustomerReviewFE() {
 
 
   const [newReview, setNewReview] = useState(initialReviewState);
+  const [reviews, setReviews] = useState([{}]);
 
   const [errorMsg, setErrorMsg] = useState("");
   const [alertMsg, setAlertMsg] = useState("");
@@ -33,22 +35,15 @@ export default function CustomerReviewFE() {
   const mediaDomin = process.env.NEXT_PUBLIC_MEDIA_CLOUDFRONT_URL
 
   useEffect(() => {
-
+    loadReviews()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const handleInputChange = (e) => {
-    setNewReview(newReview => ({
-      ...newReview,
-      [e.target.name]: e.target.value,
-    }))
-  }
+  const loadReviews = () => {
 
-  const loadProject = (id) => {
-
-    ProjectApi.getById(id).then((response) => {
-      console.log("project add/update entry response: ", response.data);
-      setProject(response.data)
+    ReviewApi.getAll().then((response) => {
+      console.log("get all reviews response: ", response.data);
+      setReviews(response.data)
     }).catch((error) => {
       console.error("Error: ", error);
       setErrorMsg(error.message)
@@ -57,19 +52,12 @@ export default function CustomerReviewFE() {
     });
   }
 
-  // const addMediaFile = (fileInfo) => {
-  //   setProject(project => ({
-  //     ...project,
-  //     fileInfos: [...project.fileInfos, fileInfo]
-  //   }));
-  // }
-
-  // const removeMediaFile = (awsKey) => {
-  //   setProject(project => ({
-  //     ...project,
-  //     fileInfos: project.fileInfos.filter(file => file.awsKey !== awsKey)
-  //   }));
-  // }
+  const handleInputChange = (e) => {
+    setNewReview(newReview => ({
+      ...newReview,
+      [e.target.name]: e.target.value,
+    }))
+  }
 
   const handleFileLoads = (e) => {
 
@@ -105,7 +93,10 @@ export default function CustomerReviewFE() {
             // All files are uploaded successfully
             responses.forEach((response, index) => {
                 console.log("File uploaded to S3:", files[index].name);
-                addMediaFile(fileInfos[index]);
+                setNewReview(prevReview => ({
+                  ...prevReview,
+                  imageAwsKey: fileInfos[index]['awsKey'],
+                }));
             });
             
             setAlertMsg("Media uploaded.")
@@ -135,7 +126,7 @@ export default function CustomerReviewFE() {
   };
 
   const validate = () => {
-    let form = JSON.parse(JSON.stringify(project))
+    let form = JSON.parse(JSON.stringify(newReview))
 
     let errrorMessages = []
 
@@ -143,12 +134,12 @@ export default function CustomerReviewFE() {
       errrorMessages.push("Name is required")
     }
 
-    if(form.createdAt === null || form.createdAt.trim().length<=0){
-      errrorMessages.push("Date is required")
+    if(form.rating === null || form.rating<=0){
+      errrorMessages.push("Quality is required")
     }
 
-    if(form.address === null || form.address.trim().length<=0){
-      errrorMessages.push("Address is required")
+    if(form.comment === null || form.comment.trim().length<=0){
+      errrorMessages.push("Comment is required")
     }
 
     let errrorMessage = ""
@@ -177,79 +168,18 @@ export default function CustomerReviewFE() {
 
     setShowBusy(true)
 
-    // ProjectApi.createUpdate(project).then((response) => {
-    //   console.log("project add/update entry response: ", response.data);
-    //   setProject(response.data)
-    //   populateIdParameter(response.data.id)
+    ReviewApi.add(newReview).then((response) => {
+      console.log("newreview add entry response: ", response.data);
+      
+      setNewReview(initialReviewState)
 
-    //   setAlertMsg("Project saved!")
-    // }).catch((error) => {
-    //   console.error("Error: ", error);
-    //   setErrorMsg(error.message)
-    //   console.error("Error: ", errorMsg);
-    //   setShowBusy(true)
-    // });
-
-  }
-
-  const populateIdParameter = (id) => {
-    // Get the current URL
-    const url = new URL(window.location.href);
-
-    // Set the query parameter
-    url.searchParams.set('id', id);
-
-    // Use history.pushState to change the URL without reloading the page
-    window.history.pushState({}, '', url);
-  }
-
-  const clickService = (clickedFilter, fileInfo) => {
-
-    console.log("clickedFilter, ", clickedFilter);
-    console.log("fileInfo, ", fileInfo);
-
-    let updatedServices = [];
-
-    if(fileInfo.services === null || fileInfo.services === undefined){
-      fileInfo.services = serviceFilters
-    }
-
-    // Check if the clicked filter is 'All'
-    if (clickedFilter.name === 'All') {
-        // Set 'All' to selected and all others to not selected
-        updatedServices = fileInfo.services.map(service => ({
-            ...service,
-            selected: service.name === 'All'
-        }));
-    } else {
-        // For any other filter, toggle its selected state and set 'All' to false
-        updatedServices = fileInfo.services.map(service => ({
-            ...service,
-            selected: service.name === clickedFilter.name ? !service.selected : (service.name === 'All' ? false : service.selected)
-        }));
-    }
-
-    // Check if any service is selected, if not, set 'All' to true
-    const isAnyServiceSelected = updatedServices.some(service => service.selected);
-    if (!isAnyServiceSelected) {
-      updatedServices = updatedServices.map(service => ({
-        ...service,
-        selected: service.name === 'All'
-      }));
-    }
-
-    // Update the project.fileInfos array
-    const updatedFileInfos = project.fileInfos.map(fi => {
-        if (fi.aws_key === fileInfo.aws_key) {
-            return { ...fi, services: updatedServices };
-        }
-        return fi;
+      setAlertMsg("Review saved!")
+    }).catch((error) => {
+      console.error("Error: ", error);
+      setErrorMsg(error.message)
+      console.error("Error: ", errorMsg);
+      setShowBusy(true)
     });
-
-    setProject(prevProject => ({
-        ...prevProject,
-        fileInfos: updatedFileInfos
-    }));
 
   }
 
@@ -269,195 +199,226 @@ export default function CustomerReviewFE() {
 
   return (
     <>
-      <div className="container">
-        <div className="row mb-1">
-          <div className="col-6 col-sm-6">
+      <div className="row">
+        <div className="col-12">
 
-            <h4>Review</h4>
-          
-          </div>
-          <div className='col-12 col-sm-6'>
-            <div className='row'>
-              <div className='col-12 col-sm-12 text-end'>
-                <button 
-                onClick={()=>addNewReview()}
-                // disabled={disableSaveBtn}
-                type="button" className="btn btn-outline-primary">Submit</button>
+          <div className="row">
+            <div className="col-12">
+              <div className="row mb-1">
+                <div className="col-6 col-sm-6">
 
-
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="row">
-          <div className="col-12 col-sm-12">
-            <form>
-              <div className='row'>
-                <div className="col-12 col-sm-12">
-                  {/* {
-                    errorMsg && 
-                    <div className="alert alert-danger">
-                      {errorMsg}
-                    </div>
-                  } */}
-                  {/* {errorMsg} */}
-                  
-                  {
-                    errorMsg && 
-                    <div className="alert alert-danger">
-                    {
-                      errorMsg.split("\n").map((message, index) => (
-                        <div key={index}>
-                          {message}
-                          <br/>
-                        </div>
-                      ))
-                    }
-                    </div>
-                  }
-
+                  <h4>Review</h4>
+                
                 </div>
-              </div>
-              <div className='row'>
-                <div className="col-12 col-md-12">
-                  {
-                    alertMsg && 
-                    <div className="alert alert-success">
-                      {alertMsg}
+                <div className='col-12 col-sm-6'>
+                  <div className='row'>
+                    <div className='col-12 col-sm-12 text-end'>
+                      <button 
+                      onClick={()=>addNewReview()}
+                      // disabled={disableSaveBtn}
+                      type="button" className="btn btn-outline-primary">Submit</button>
+
+
                     </div>
-                  }
+                  </div>
                 </div>
               </div>
               <div className="row">
-                <div className="col-12 col-sm-5">
+                <div className="col-12 col-sm-12">
+                  <form>
+                    <div className='row'>
+                      <div className="col-12 col-sm-12">
+                        {/* {
+                          errorMsg && 
+                          <div className="alert alert-danger">
+                            {errorMsg}
+                          </div>
+                        } */}
+                        {/* {errorMsg} */}
+                        
+                        {
+                          errorMsg && 
+                          <div className="alert alert-danger">
+                          {
+                            errorMsg.split("\n").map((message, index) => (
+                              <div key={index}>
+                                {message}
+                                <br/>
+                              </div>
+                            ))
+                          }
+                          </div>
+                        }
 
-                  <div className='row'>
-                    <div className='col-sm-5 offset-sm-2'>
-      
-                      <div className='row'>
-                        <div className='col-12'>
-                          <img src="/user_placeholder.jpeg" class="img-fluid" alt="..."/>
-                        </div>
                       </div>
-                      <div className='row'>
-                        <div className='col-12'>
-                          <label className="form-label">Your Picture</label>
-                          <input 
-                            onChange={handleFileLoads} 
-                            className="form-control form-control-sm" type="file" />
+                    </div>
+                    <div className='row'>
+                      <div className="col-12 col-md-12">
+                        {
+                          alertMsg && 
+                          <div className="alert alert-success">
+                            {alertMsg}
+                          </div>
+                        }
+                      </div>
+                    </div>
+                    <div className="row">
+                      <div className="col-12 col-sm-5">
+
+                        <div className='row'>
+                          <div className='col-sm-5 offset-sm-2'>
+            
+                            <div className='row'>
+                              <div className='col-12'>
+                              {
+                                newReview.imageAwsKey.length>0 && 
+                                <img
+                                src={mediaDomin + `/`+ newReview.imageAwsKey} 
+                                class="img-fluid" alt="..."/>
+                              }
+                              {
+                                newReview.imageAwsKey.length <=0 && 
+                                <img src="/user_placeholder.jpeg" class="img-fluid" alt="..."/>
+                              }
+                              </div>
+                            </div>
+                            <div className='row'>
+                              <div className='col-12'>
+                                <label className="form-label">Your Picture</label>
+                                <input 
+                                  onChange={handleFileLoads} 
+                                  className="form-control form-control-sm" type="file" />
+                            
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                      </div>
+                      <div className="col-12 col-sm-7">
+
+                        <div className="row">
+                          <div className="col-12 col-sm-6">
+                            <label className="form-label">Name</label>
+                            <input 
+                            type="text" 
+                            className="form-control"
+                            name="name"
+                            value={newReview.name}
+                            onChange={handleInputChange}
+                            required
+                            placeholder=""
+                            />
+                          </div>
+                          <div className="col-12 col-sm-6">
+                            <label className="form-label">Phone</label>
+                            <input 
+                            type="text" 
+                            className="form-control"
+                            name="phone"
+                            value={newReview.phone}
+                            onChange={handleInputChange}
+                            required
+                            placeholder=""
+                            />
+                          </div>
+                        </div>
+                        <div className="row">
+                          <div className="col-12 col-sm-6">
+                            <label className="form-label">Email</label>
+                            <input 
+                              type="text" 
+                              className="form-control"
+                              name="email"
+                              value={newReview.email}
+                              onChange={handleInputChange}
+                              required
+                              placeholder=""
+                            />
+                          </div>
+                          <div className="col-12 col-sm-6">
+                            <label className="form-label">Quality of Service</label>
+                            <br/>
+
+                            <div className="btn-group" role="group">
+                              {[...Array(5)].map((star, index) => {
+                                index += 1;
+                                return (
+                                  <button
+                                    key={index}
+                                    type="button"
+                                    className={`btn ${index <= newReview.rating ? 'btn-primary' : 'btn-outline-primary'}`}
+                                    onClick={() => handleRating(index)}
+                                  >
+                                    {index <= newReview.rating ? <i className="bi bi-star-fill"></i> : <i className="bi bi-star"></i>}
+                                  </button>
+                                );
+                              })}
+                            </div>
+                          </div>
+
+                        </div>
+                        <div className="row">
+                          <div className="col-12 col-sm-6">
+                            <label className="form-label">Would you recommend us to a friend?</label>
+                            <br/>
+                            <div class="btn-group">
+                              <button 
+                                onClick={()=>handleRecommending("Yes")}
+                                type="button" 
+                                className={`btn ${newReview.recommending === "Yes" ? "btn-primary" : "btn-outline-primary"}`}>
+                                Yes
+                              </button>
+                              <button 
+                                onClick={()=>handleRecommending("No")}
+                                type="button" 
+                                className={`btn ${newReview.recommending === "No" ? "btn-primary" : "btn-outline-primary"}`}>
+                                No
+                              </button>
+                            </div>
+                          </div>
+                          
+                        </div>
+                        <div className="row">
+                          <div className="col-12 col-sm-12">
+                              <label className="form-label">Comment</label>
+                              <textarea 
+                                name="comment"
+                                value={newReview.comment}
+                                onChange={handleInputChange}
+                                className="form-control" 
+                                rows="3">
+
+                              </textarea>
                       
+                          </div>
                         </div>
-                      </div>
-                    </div>
-                  </div>
-
-                </div>
-                <div className="col-12 col-sm-7">
-
-                  <div className="row">
-                    <div className="col-12 col-sm-6">
-                      <label className="form-label">Name</label>
-                      <input 
-                      type="text" 
-                      className="form-control"
-                      name="name"
-                      value={newReview.name}
-                      onChange={handleInputChange}
-                      required
-                      placeholder=""
-                      />
-                    </div>
-                    <div className="col-12 col-sm-6">
-                      <label className="form-label">Phone</label>
-                      <input 
-                      type="text" 
-                      className="form-control"
-                      name="phone"
-                      value={newReview.phone}
-                      onChange={handleInputChange}
-                      required
-                      placeholder=""
-                      />
-                    </div>
-                  </div>
-                  <div className="row">
-                    <div className="col-12 col-sm-6">
-                      <label className="form-label">Email</label>
-                      <input 
-                        type="text" 
-                        className="form-control"
-                        name="email"
-                        value={newReview.email}
-                        onChange={handleInputChange}
-                        required
-                        placeholder=""
-                      />
-                    </div>
-                    <div className="col-12 col-sm-6">
-                      <label className="form-label">Quality of Service</label>
-                      <br/>
-
-                      <div className="btn-group" role="group">
-                        {[...Array(5)].map((star, index) => {
-                          index += 1;
-                          return (
-                            <button
-                              key={index}
-                              type="button"
-                              className={`btn ${index <= newReview.rating ? 'btn-primary' : 'btn-outline-primary'}`}
-                              onClick={() => handleRating(index)}
-                            >
-                              {index <= newReview.rating ? <i className="bi bi-star-fill"></i> : <i className="bi bi-star"></i>}
-                            </button>
-                          );
-                        })}
+                        
                       </div>
                     </div>
 
-                  </div>
-                  <div className="row">
-                    <div className="col-12 col-sm-6">
-                      <label className="form-label">Would you recommend us to a friend?</label>
-                      <br/>
-                      <div class="btn-group">
-                        <button 
-                          onClick={()=>handleRecommending("Yes")}
-                          type="button" 
-                          className={`btn ${newReview.recommending === "Yes" ? "btn-primary" : "btn-outline-primary"}`}>
-                          Yes
-                        </button>
-                        <button 
-                          onClick={()=>handleRecommending("No")}
-                          type="button" 
-                          className={`btn ${newReview.recommending === "No" ? "btn-primary" : "btn-outline-primary"}`}>
-                          No
-                        </button>
-                      </div>
-                    </div>
-                    
-                  </div>
-                  <div className="row">
-                    <div className="col-12 col-sm-12">
-                        <label className="form-label">Comment</label>
-                        <textarea 
-                          name="comment"
-                          value={newReview.comment}
-                          onChange={handleInputChange}
-                          className="form-control" 
-                          rows="3">
-
-                        </textarea>
                 
-                    </div>
-                  </div>
-                  
+            
+                    {/* <button onClick={()=>signInWithEmailAndPassword()} className="btn btn-primary w-100 py-2" type="button">Sign In</button> */}
+                  </form>
                 </div>
               </div>
+            </div>
+          </div>
 
-          
-      
-              {/* <button onClick={()=>signInWithEmailAndPassword()} className="btn btn-primary w-100 py-2" type="button">Sign In</button> */}
-            </form>
+          <div className="row mt-2">
+            <div className="col-12">
+            {
+              reviews && reviews.length>0 &&
+              reviews.map((review, index) => (
+                <div className="row" key={review.id}>
+                  <div className="col-12">
+                    {review.name}
+                  </div>
+                </div>
+              ))
+            }
+            </div>
           </div>
         </div>
       </div>
