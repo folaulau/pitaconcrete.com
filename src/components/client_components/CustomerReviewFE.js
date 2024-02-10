@@ -211,16 +211,7 @@ export default function CustomerReviewFE() {
                 
                 </div>
                 <div className='col-12 col-sm-6'>
-                  <div className='row'>
-                    <div className='col-12 col-sm-12 text-end'>
-                      <button 
-                      onClick={()=>addNewReview()}
-                      // disabled={disableSaveBtn}
-                      type="button" className="btn btn-outline-primary">Submit</button>
-
-
-                    </div>
-                  </div>
+              
                 </div>
               </div>
               <div className="row">
@@ -391,6 +382,17 @@ export default function CustomerReviewFE() {
 
                               </textarea>
                       
+                          </div>
+                        </div>
+
+                        <div className='row mt-2'>
+                          <div className='col-12 col-sm-12 text-end'>
+                            <button 
+                            onClick={()=>addNewReview()}
+                            // disabled={disableSaveBtn}
+                            type="button" className="btn btn-outline-primary">Submit</button>
+
+
                           </div>
                         </div>
                         
