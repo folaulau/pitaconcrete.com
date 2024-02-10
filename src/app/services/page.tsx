@@ -2,6 +2,7 @@ import AboutComp from '@/components/server_components/AboutUs';
 import { AllTagList, CommercialTagList, ResidentialTagList} from '@/components/client_components/ProjectTag'
 import './page.css'
 import CacheTrigger from '@/components/client_components/CacheTrigger';
+import CustomerReviewFE from '@/components/client_components/CustomerReviewFE'
 
 export default function Services() {
 
@@ -99,7 +100,7 @@ export default function Services() {
 
                       <div className="row mt-3">
                           <div className="col-12">
-                           
+                            <CustomerReviewFE />
                           </div>
                       </div>
                     </div>

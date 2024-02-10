@@ -192,18 +192,18 @@ export default function ProjectFE() {
 
     setShowBusy(true)
 
-    // ProjectApi.createUpdate(project).then((response) => {
-    //   console.log("project add/update entry response: ", response.data);
-    //   setProject(response.data)
-    //   populateIdParameter(response.data.id)
+    ProjectApi.createUpdate(project).then((response) => {
+      console.log("project add/update entry response: ", response.data);
+      setProject(response.data)
+      populateIdParameter(response.data.id)
 
-    //   setAlertMsg("Project saved!")
-    // }).catch((error) => {
-    //   console.error("Error: ", error);
-    //   setErrorMsg(error.message)
-    //   console.error("Error: ", errorMsg);
-    //   setShowBusy(true)
-    // });
+      setAlertMsg("Project saved!")
+    }).catch((error) => {
+      console.error("Error: ", error);
+      setErrorMsg(error.message)
+      console.error("Error: ", errorMsg);
+      setShowBusy(true)
+    });
 
   }
 
