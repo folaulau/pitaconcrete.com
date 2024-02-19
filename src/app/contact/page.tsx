@@ -39,14 +39,14 @@ export default function Contact() {
                     Email: <a href="mailto:pitaconcrete@gmail.com">pitaconcrete@gmail.com</a>
                   </div>
                 </div>
-                <div className="row">
+                {/* <div className="row">
                   <div className="col-12 text-center">
                     Hours of Operation
                   </div>
-                </div>
+                </div> */}
                 <div className="row">
                   <div className="col-12 text-center">
-                    Monday – Friday   :   8 AM – 5 PM
+                    Monday – Friday   :   8 AM – 6 PM
                   </div>
                 </div>
               </div>
